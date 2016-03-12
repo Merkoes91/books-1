@@ -1,3 +1,12 @@
+Changelog
+===========
+Video 1:
+Nothing changed i've only imported the data from the data/seed directory in to my own local mongo --C:\Mongo\bin>mongorestore -d books C:\Users\Marko\workspaces\books-1\data"
+
+Video 2:
+
+
+
 Description
 ===========
 This demo is MEAN with books.
