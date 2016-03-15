@@ -38,6 +38,7 @@ mongoose.connect(config.db); // connect with the database string defined in conf
 console.log(config.debug);
 
 mongoose.connection.on('error', function (err) {
+    "use strict";
     console.error('MongoDB error: %s', err);
 });
 mongoose.set('debug', config.debug);
@@ -50,6 +51,7 @@ mongoose.set('debug', config.debug);
 models_path = __dirname + '/app/models'; // set the path to the model files
 model_files = fs.readdirSync(models_path); // read the actual files in the path specified above
 model_files.forEach(function (file) { // require each model found in the directory
+    "use strict";
     require(models_path + '/' + file);
 });
 
@@ -77,6 +79,7 @@ app.use(bodyParser.urlencoded({extended: true})); // we want to make sure everyt
  */
 if(config.debug) {
     app.use(function (req, res, next) {
+        "use strict";
         console.log('%s %s %s', req.method, req.url, req.path);
         next(); // required to move on
     })
@@ -102,6 +105,7 @@ route_files.forEach(function (file) {
  * Middleware to catch all unmatched routes
  */
 app.app('*', function (req, res) {
+    "use strict";
     res.send(404);
 });
 

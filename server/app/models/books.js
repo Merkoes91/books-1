@@ -1,11 +1,17 @@
 /** TODO: Test with static-analyzer */
+/** schema's are used to define JSON objects (their properties are added to the document attributes
+*   A mongoose model enabled CRUD operations on mongoose schema's
+*/
 
 (function () {
     "use strict";
     /**
      * Module dependencies.
      */
-    /** TODO: Define variables */
+    var mongoose = require('mongoose'),
+        Schema = mongoose.Schema,
+        schemaName,
+        modelName;
 
     /**
      * Creates a new mongoose schema.
@@ -32,7 +38,12 @@
      * @see http://mongoosejs.com/docs/schematypes.html
      * @see http://mongoosejs.com/docs/guide.html#collection
      */
-    /** TODO: Create schema */
+    schemaName = new Schema({
+        title: {type: String, required: true, unique: true},
+        author: {type: String, required: true},
+        description: {type: String},
+        modificationDate: {type: Date, "default": Date.now}
+    }, {collection: 'books'});
 
     /**
      * Custom validator
@@ -52,9 +63,10 @@
      * @returns true or false. In case of ```false```, a message 'Invalid title' is returned as well.
      * @see http://mongoosejs.com/docs/validation.html
      */
-    /**
-     * TODO: Create custom validator
-     */
+    schemaName.path('title').validate(function (val) {
+        "use strict";
+        return (val !== undefined && val !== null && val.length >= 8);
+    }, 'Invalid title');
 
     /**
      * Instructions, hints and questions.
@@ -63,6 +75,7 @@
      * @class Model/Book
      * @see http://mongoosejs.com/docs/models.html
      */
-    /** TODO: Create model */
+    modelName = "Book";
+    mongoose.model(modelName, schemaName);
 
 }());
