@@ -3,8 +3,13 @@ Changelog
 Video 1:
 Nothing changed i've only imported the data from the data/seed directory in to my own local mongo --C:\Mongo\bin>mongorestore -d books C:\Users\Marko\workspaces\books-1\data"
 
-Video 2:
-
+Video 2(https://www.youtube.com/watch?v=1NByK6kXutk&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=2)
+- Ran npm install to install the node modules
+- changed the versions in package.json to * to install the latest versions
+- changed the start script to node bin/www.js
+- changed database connection to 127.0.0.1:27017/books
+- set up the server.js file according to the steps done in the video
+- testing will be done in a later video
 
 
 Description
