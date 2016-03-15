@@ -1,9 +1,9 @@
 Changelog
 ===========
-Video 1:
+## Video 1:
 Nothing changed i've only imported the data from the data/seed directory in to my own local mongo --C:\Mongo\bin>mongorestore -d books C:\Users\Marko\workspaces\books-1\data"
 
-Video 2(https://www.youtube.com/watch?v=1NByK6kXutk&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=2)
+## Video 2(https://www.youtube.com/watch?v=1NByK6kXutk&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=2)
 - Ran npm install to install the node modules
 - changed the versions in package.json to * to install the latest versions
 - changed the start script to node bin/www.js
@@ -11,22 +11,22 @@ Video 2(https://www.youtube.com/watch?v=1NByK6kXutk&list=PLG1mkqKjiDY-gDQymDbn1h
 - set up the server.js file according to the steps done in the video
 - testing will be done in a later video
 
-Video 3(https://www.youtube.com/watch?v=zO9Wnxaja1Y&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=3)
+## Video 3(https://www.youtube.com/watch?v=zO9Wnxaja1Y&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=3)
 - adding model
 
-Question: What are the differences between a 'Schema Type' and a JSON object? Use the references to motivate your answer.
-Answer: A Schema Type defines defaults, validation, getters, setter and other general characteristics for String and Numbers. So basically it defines which attributes a
-JSON object will have and the rules for the values of these attributes. Ref: http://mongoosejs.com/docs/schematypes.html
+__Question: What are the differences between a 'Schema Type' and a JSON object? Use the references to motivate your answer.__
+_Answer: A Schema Type defines defaults, validation, getters, setter and other general characteristics for String and Numbers. So basically it defines which attributes a
+JSON object will have and the rules for the values of these attributes. Ref: http://mongoosejs.com/docs/schematypes.html_
 
-Question: What is the function of the 'collection' property?
-Answer: Mongoose produces a default collection name by passing the model name. This method pluralizes the name (so for example book model, the collection will be called books)
-if you want a different name for your collection change this attribute.  Ref: http://mongoosejs.com/docs/guide.html#collection
+__Question: What is the function of the 'collection' property?__
+_Answer: Mongoose produces a default collection name by passing the model name. This method pluralizes the name (so for example book model, the collection will be called books)
+if you want a different name for your collection change this attribute.  Ref: http://mongoosejs.com/docs/guide.html#collection_
 
-Question: Suppose you have a model for 'Person'. What would be the default collection name?
-Answer: As said in the questions above by default the schema name is pluralized but there is a dictionary with plurals behind so it would not be Persons but People instead.
+__Question: Suppose you have a model for 'Person'. What would be the default collection name?__
+_Answer: As said in the questions above by default the schema name is pluralized but there is a dictionary with plurals behind so it would not be Persons but People instead._
 
-Question: What are the differences between a 'Model' and a 'Schema Type'? Use the references to motivate your answer.
-Answer: Models are constructors complied from the Schema definitions. CRUD Operations can be handled by these models.
+__Question: What are the differences between a 'Model' and a 'Schema Type'? Use the references to motivate your answer.__
+_Answer: Models are constructors complied from the Schema definitions. CRUD Operations can be handled by these models._
 
 
 Description
