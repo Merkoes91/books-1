@@ -1,8 +1,11 @@
+/*jslint node: true */
+"use strict";
+
 /** TODO: Test with static-analyzer */
 
-/**
- * TODO: Define variables
- */
+var mongoose = require('mongoose'),
+    Book = mongoose.model('Book');
+
 /**
  * CREATE a book
  * --------------------
@@ -34,9 +37,23 @@
  * @see http://mongoosejs.com/docs/api.html#model_Model-save
  * @module books/create
  */
-/**
- * TODO: Create a CREATE document controller
- */
+
+exports.create = function (req, res) {
+    var doc = new Book(req.body);
+    console.log('Creating' + doc.title);
+    doc.save(function (err) {
+
+        var retObj = {
+            meta: {"action": "create",
+                'timestamp': new Date(),
+                filename: __filename},
+            doc: doc,
+            err: err
+        };
+
+        return res.send(retObj);
+    });
+};
 
 /**
  * RETRIEVE _all_ books

@@ -26,7 +26,28 @@ __Question: Suppose you have a model for 'Person'. What would be the default col
 _Answer: As said in the questions above by default the schema name is pluralized but there is a dictionary with plurals behind so it would not be Persons but People instead._
 
 __Question: What are the differences between a 'Model' and a 'Schema Type'? Use the references to motivate your answer.__
-_Answer: Models are constructors complied from the Schema definitions. CRUD Operations can be handled by these models._
+_Answer: Models are constructors compiled from the Schema definitions. CRUD Operations can be handled by these models._
+
+
+
+## Video 4(https://www.youtube.com/watch?v=9ZBM_wZxwWg&index=4&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
+added a save document in our controller to create a new book
+
+__Question: What are the differences between MongoDb and Mongoose?
+_Answer: Mongodb is the native driver for interacting with a mongodb instance.
+Mongoose is a dependency built upon the mongodb drive to providing programmers a way to model their data
+
+__Question: explain the concepts of 'schema type' and 'model'. How are they related?
+_Answer: in a schema type you handle the definition of defaults, validation, getters, setters and other general characteristics
+Models are fancy concstructors compliled from the schema type definition they represent documents which can be saved and retrieved
+from our database.
+
+
+__Question: What will happen if you throw an error on the server?
+_Answer: The err is send in a response object to the browser. i guess in theory you could log this object or the error message
+on the server as well. Can't this this at the moment because the functionality is not completely working yet.
+
+
 
 
 Description
