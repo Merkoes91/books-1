@@ -47,6 +47,8 @@ __Question: What will happen if you throw an error on the server?
 _Answer: The err is send in a response object to the browser. i guess in theory you could log this object or the error message
 on the server as well. Can't this this at the moment because the functionality is not completely working yet.
 
+## Video 5(https://www.youtube.com/watch?v=So2EnVdNBag&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=5)
+Added route for creating a document.
 
 
 

@@ -1,9 +1,9 @@
 /** TODO: Test with static-analyzer */
 
-
 /** @module Routes for books */
 /** @class */
-/** TODO: Define module */
+var express = require('express'),
+    router = express.Router();
 
     /**  book routes
      ---------------
@@ -11,12 +11,12 @@
      We map the URL to a method in the created variable "controller".
      In this example is a mapping for every CRUD action.
      */
-    /** TODO: Define variable(s) */
+    var controller = require('../app/controllers/books.js');
 
     // CREATE
     /** CREATE route for books */
-    /** TODO: Define route for CREATE 1 document */
-
+    router
+        .post('/books', controller.create);
     // RETRIEVE
     /** TODO: Define route for RETRIEVE all documents */
     /** TODO: Define route for RETRIEVE 1 document */
