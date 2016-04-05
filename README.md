@@ -53,6 +53,7 @@ Added route for creating a document.
 
 ## Video 6(https://www.youtube.com/watch?v=68hQepM-qk4&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=6)
 added
+Controler to:
 -- retrieve all books
 -- retrieve one book
 
@@ -64,6 +65,10 @@ _Answer:  Route parameters are in the URL of the application e.g.  /books/id/123
 Body parameters are parameters you send to the server in e.g. a request object.
 
 
+## video 7 (https://www.youtube.com/watch?v=RRpxbdxebE8&index=7&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
+
+Added
+- Routing to retrieve ALL/ONE book(s)
 
 
 

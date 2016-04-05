@@ -16,13 +16,14 @@ var express = require('express'),
     // CREATE
     /** CREATE route for books */
     router
-        .post('/books', controller.create)
+        .post('/books', controller.create);
 
 
+    // symbol :_id should be the same as req.params in controllers/books.js
     // RETRIEVE
-        .get('/books', controller.list);
-
-    /** TODO: Define route for RETRIEVE 1 document */
+    router
+        .get('/books', controller.list)
+        .get('/books/:_id', controller.detail);
 
     // UPDATE
     /** TODO: Define route for UPDATE 1 document */
