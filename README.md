@@ -51,6 +51,22 @@ on the server as well. Can't this this at the moment because the functionality i
 Added route for creating a document.
 
 
+## Video 6(https://www.youtube.com/watch?v=68hQepM-qk4&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=6)
+added
+-- retrieve all books
+-- retrieve one book
+
+__Question: what is the Difference between a mongo find and a mongoose find?
+_Answer: A mongo find can be called on any collection while a mongoose find can only find documents for the model you're using (based on the schema)
+
+__Question: Define route parameters and body parameter. What are the differences?
+_Answer:  Route parameters are in the URL of the application e.g.  /books/id/123456789 is a route parameter.
+Body parameters are parameters you send to the server in e.g. a request object.
+
+
+
+
+
 
 Description
 ===========

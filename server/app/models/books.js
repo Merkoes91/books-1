@@ -65,7 +65,7 @@
      */
     schemaName.path('title').validate(function (val) {
         "use strict";
-        return (val !== undefined && val !== null && val.length >= 8);
+        return (val !== undefined && val !== null && val.length >= 2);
     }, 'Invalid title');
 
     /**

@@ -16,9 +16,12 @@ var express = require('express'),
     // CREATE
     /** CREATE route for books */
     router
-        .post('/books', controller.create);
+        .post('/books', controller.create)
+
+
     // RETRIEVE
-    /** TODO: Define route for RETRIEVE all documents */
+        .get('/books', controller.list);
+
     /** TODO: Define route for RETRIEVE 1 document */
 
     // UPDATE
