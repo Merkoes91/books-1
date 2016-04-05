@@ -1,7 +1,4 @@
-/** TODO: Test with static-analyzer */
-/** schema's are used to define JSON objects (their properties are added to the document attributes
-*   A mongoose model enabled CRUD operations on mongoose schema's
-*/
+/*jslint node:true */
 
 (function () {
     "use strict";
@@ -64,7 +61,6 @@
      * @see http://mongoosejs.com/docs/validation.html
      */
     schemaName.path('title').validate(function (val) {
-        "use strict";
         return (val !== undefined && val !== null && val.length >= 2);
     }, 'Invalid title');
 

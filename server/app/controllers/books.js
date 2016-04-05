@@ -100,7 +100,7 @@ exports.list = function (req, res) {
 
     Book.find(conditions, fields)
         .sort(sort)
-        .exec(function (err, doc ) {
+        .exec(function (err, doc) {
 
             var retObj = {
                 meta: {"action": "create",
@@ -146,7 +146,7 @@ exports.list = function (req, res) {
  * @see http://docs.mongodb.org/manual/reference/method/db.collection.findOne/
  * @see http://mongoosejs.com/docs/api.html#model_Model.findOne
  */
-exports.detail = function (req, res ) {
+exports.detail = function (req, res) {
 
     var conditions, fields;
 
@@ -155,7 +155,7 @@ exports.detail = function (req, res ) {
 
     Book
         .findOne(conditions, fields)
-        .exec(function (err, doc ) {
+        .exec(function (err, doc) {
             var retObj = {
                 meta: {"action": "create",
                     'timestamp': new Date(),
@@ -257,7 +257,7 @@ exports.updateOne = function (req, res) {
  * @see http://mongoosejs.com/docs/api.html#model_Model.remove
  */
 exports.deleteOne = function (req, res) {
-    var conditions, callback, retObj;
+    var conditions, callback;
 
     conditions = {_id: req.params._id };
     callback = function (err, doc) {

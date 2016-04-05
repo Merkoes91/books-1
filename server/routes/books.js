@@ -1,4 +1,4 @@
-/** TODO: Test with static-analyzer */
+/*jslint node:true */
 
 /** @module Routes for books */
 /** @class */
@@ -11,25 +11,25 @@ var express = require('express'),
      We map the URL to a method in the created variable "controller".
      In this example is a mapping for every CRUD action.
      */
-    var controller = require('../app/controllers/books.js');
+var controller = require('../app/controllers/books.js');
 
     // CREATE
     /** CREATE route for books */
-    router
-        .post('/books', controller.create);
+router
+    .post('/books', controller.create);
 
 
     // symbol :_id should be the same as req.params in controllers/books.js
     // RETRIEVE
-    router
-        .get('/books', controller.list)
-        .get('/books/:_id', controller.detail);
+router
+    .get('/books', controller.list)
+    .get('/books/:_id', controller.detail);
 
     // UPDATE
-    router.
-        put('books/:_id', controller.updateOne);
+router
+    .put('books/:_id', controller.updateOne);
 
     // DELETE
-    router.
-        delete('books/:_id', controller.deleteOne);
+router.
+    delete('books/:_id', controller.deleteOne);
 

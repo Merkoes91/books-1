@@ -82,10 +82,28 @@ __Question: What changes should be made to update more than one document?
 _answer: use the db.collection.update method with 'multi: ' set to true so it will update any document that match the query criteria.
 
 
-## video 10 (https://www.youtube.com/watch?v=wYelAssjzew&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=10)
+## video 10 and 11(https://www.youtube.com/watch?v=wYelAssjzew&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=10)
 Added
 --Delete controller and delete route
 
+## video 12 (https://www.youtube.com/watch?v=IfqZbj_0Ejg&index=12&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
+Added
+
+static-analyzer testing for typos, style errors with jslint and jshint, output: 
+
+*** LintRoller on /app/... ***
+*** LintRoller v2.3.5 ***
+
+Initializing linter: jslint
+Initializing linter: jshint
+Initializing linter: esprima
+
+Deleting old log file...
+Done.
+
+6 matching files found.
+
+Successfully linted your code!
 
 
 Description
