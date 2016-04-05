@@ -1,5 +1,15 @@
-/** TODO: Test with static-analyzer */
+/*jslint node:true */
 
-/** TODO: Define variables */
+(function () {
+    "use strict";
 
-/** TODO: Create http server */
+    var app = require('../server.js'), // require our app
+
+        server = app.listen(app.get('port'), function () {
+            console.log('Express server listening on port ' + server.address().port);
+        });
+
+
+    /** TODO: Create http server */
+
+}());

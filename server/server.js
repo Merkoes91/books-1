@@ -7,7 +7,7 @@
  * @type {exports}
  */
     var fs = require('fs'),                      // used to read files from the file system(__dirname)
-     //   http = require('http'),                  // enables http protocol
+        //http = require('http'),                  // enables http protocol
         express = require('express'),           // Fast, unopinionated minimalist web framework for Node.js
         bodyParser = require('body-parser'),    // this does not handle multipart bodies due to their complex and typically large nature
         env,            // save the enviroment
@@ -102,9 +102,10 @@
 /**
  * Middleware to catch all unmatched routes
  */
-    app.app('*', function (req, res) {
-        res.send(404);
+    app.all('*', function (req, res) {
+        res.sendStatus(404);
     });
+
 
     module.exports = app;
 

@@ -33,3 +33,4 @@ router
 router.
     delete('books/:_id', controller.deleteOne);
 
+module.exports = router;
