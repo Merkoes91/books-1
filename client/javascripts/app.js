@@ -8,11 +8,6 @@
 var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        // Get all books
-      //  $routeProvider.when('/about', {
-       //     templateUrl: './partials/about.html',
-      //      controller: aboutMeCTRL
-      //  });
 
         $routeProvider.when('/books', {
             templateUrl: './partials/book-list.html',

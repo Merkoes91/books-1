@@ -50,5 +50,9 @@ function BookDetailCtrl($scope, $routeParams, $location, booksService) {
 
 myApp.controller('myCtrl', function ($scope) {
     "use strict";
-    // TODO: bind settings with whoami
+    $scope.firstName = "Marko";
+    $scope.lastName = "de Roos";
+    $scope.position = 'Student';
+    $scope.picture = "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xtp1/v/t1.0-9/1422382_10204072021618271_4851143020002677795_n.jpg?oh=9c816c78eebe3a24f3a3e030e4906252&oe=57730180&__gda__=1471914662_2f5e118666ce64044f9d73b5928fa59b";
+    $scope.aboutMe = "Hi, my name is Marko de Roos, Currently 24 years of age and residing in Ede, Netherlands.  This is an assignment for school Learning about the MEAN STACK.";
 });

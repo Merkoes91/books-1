@@ -78,7 +78,7 @@
  */
     if (config.debug) {
         app.use(function (req, res, next) {
-           console.log('%s %s %s', req.method, req.url, req.path);
+            console.log('%s %s %s', req.method, req.url, req.path);
             next(); // required to move on
         });
     }

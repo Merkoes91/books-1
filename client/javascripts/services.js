@@ -10,7 +10,7 @@
         // service factory
         .factory('booksService', ['$resource', '$http',
 
-            function($resource) {
+            function ($resource) {
                 var actions = {
                         'get': {method: 'GET'},
                         'save': {method: 'POST'},
