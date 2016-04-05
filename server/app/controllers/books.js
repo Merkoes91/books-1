@@ -200,7 +200,7 @@ exports.detail = function (req, res ) {
  * @see http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
  */
 
-exports.update = function (req, res) {
+exports.updateOne = function (req, res) {
 
     var conditions =
         {_id: req.params._id},
