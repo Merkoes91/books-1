@@ -89,7 +89,7 @@ Added
 ## video 12 (https://www.youtube.com/watch?v=IfqZbj_0Ejg&index=12&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
 Added
 
-static-analyzer testing for typos, style errors with jslint and jshint, output: 
+static-analyzer testing for typos, style errors with jslint and jshint, output:
 
 *** LintRoller on /app/... ***
 *** LintRoller v2.3.5 ***
@@ -104,6 +104,10 @@ Done.
 6 matching files found.
 
 Successfully linted your code!
+
+
+## video 13 (https://www.youtube.com/watch?v=5t62zROyZxI&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=15)
+-- Unit testing
 
 
 Description

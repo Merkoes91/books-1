@@ -1,33 +1,55 @@
 /*jslint node: true */
 /*globals myApp */
 
+function BookListCtrl($scope, booksService) {
+    "use strict";
+    //get all books
+    $scope.books = booksService.books.get();
+}
 
-/**
- * TODO: create controller for book list
- * @param $scope
- * @param booksService
- * @constructor
- */
-/** TODO: Create functionality to retrieve all books */
-
-/**
- * TODO: create controller for retrieving 1 book, create and delete
- * @param $scope
- * @param $routeParams
- * @param booksService
- * @constructor
- */
 function BookDetailCtrl($scope, $routeParams, $location, booksService) {
     "use strict";
-    // GET 1 book
 
-    /** TODO: Create route to retrieve 1 book */
+
+    // GET 1 book
+    if ($routeParams.id !== 0) {
+        $scope.books = booksService.books.get({_id: $routeParams.id}, function () {
+            console.log('$scope.requests ', $scope.requests);
+            $scope.status = 'Editing ';
+        });
+    }
+
+    if ($routeParams.id == 'new') {
+        $scope.status = 'Adding new book' ;
+    }
 
     // DELETE book
-    /** TODO: Create route to delete a book */
+    $scope.removeOne = function () {
+        booksService.books.delete({_id: $routeParams.id});
+        console.log('deleting');
+        $location.path("/books");
+    };
 
     // CREATE, UPDATE book
-    /** TODO: Create cde to create, update a book */
+
+    // CREATE, UPDATE book
+    $scope.save = function () {
+
+        if ($scope.books.doc && $scope.books.doc._id !== undefined) {
+            console.log('Entering update');
+            booksService.books.update({_id: $scope.books.doc._id}, $scope.books, function (res) {
+                console.log(res);
+            });
+            $location.path("/books");
+
+        } else {
+            console.log('Entering save');
+            booksService.books.save({}, $scope.books.doc, function (res) {
+                console.log(res);
+            });
+            $location.path("/books");
+        }
+    };
 }
 
 myApp.controller('myCtrl', function ($scope) {
