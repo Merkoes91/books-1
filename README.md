@@ -110,6 +110,18 @@ Successfully linted your code!
 -- Unit testing
 
 
+## video 14 & 15
+
+added
+- client controllers
+- some changes to index.html
+- services.js
+
+
+## video 16
+
+- app.js
+
 Description
 ===========
 This demo is MEAN with books.
