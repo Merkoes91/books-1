@@ -71,7 +71,7 @@ Added
 - Routing to retrieve ALL/ONE book(s)
 
 
-## video 8 (https://www.youtube.com/watch?v=sVBypIAHRTo&index=8&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
+## video 8 and 9(https://www.youtube.com/watch?v=sVBypIAHRTo&index=8&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln)
 
 Add:
 
@@ -82,7 +82,9 @@ __Question: What changes should be made to update more than one document?
 _answer: use the db.collection.update method with 'multi: ' set to true so it will update any document that match the query criteria.
 
 
-
+## video 10 (https://www.youtube.com/watch?v=wYelAssjzew&list=PLG1mkqKjiDY-gDQymDbn1h4WbJ56N48ln&index=10)
+Added
+--Delete controller and delete route
 
 
 

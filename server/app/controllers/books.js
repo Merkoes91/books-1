@@ -222,12 +222,6 @@ exports.updateOne = function (req, res) {
 
     Book.findOneAndUpdate(conditions, update, options, callback);
 };
-/**
- * DELETE
- * remove @ http://mongoosejs.com/docs/api.html#model_Model-remove
- * @param req
- * @param res
- */
 
 /**
  * DELETE _one_ book
@@ -262,6 +256,19 @@ exports.updateOne = function (req, res) {
  * @see http://docs.mongodb.org/manual/reference/method/db.collection.remove/
  * @see http://mongoosejs.com/docs/api.html#model_Model.remove
  */
-/**
- * TODO: Create a DELETE document controller
- */
+exports.deleteOne = function (req, res) {
+    var conditions, callback, retObj;
+
+    conditions = {_id: req.params._id };
+    callback = function (err, doc) {
+        var retObj = {
+            meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
+            doc: doc,
+            err: err
+        };
+        return res.send(retObj);
+    };
+    Book
+        .remove(conditions, callback);
+};
+

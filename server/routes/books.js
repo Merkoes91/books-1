@@ -27,8 +27,9 @@ var express = require('express'),
 
     // UPDATE
     router.
-        put('books/_id', controller.updateOne);
+        put('books/:_id', controller.updateOne);
 
     // DELETE
-    /** TODO: Define route for DELETE 1 document */
+    router.
+        delete('books/:_id', controller.deleteOne);
 
