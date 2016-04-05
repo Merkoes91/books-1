@@ -1,6 +1,26 @@
-<h2>Book</h2>
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6">
+        <form class="form-vertical" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label for="input-title" class="control-label">Title</label>
+                    <input data-ng-model="books.doc.title" type="text" class="form-control" id="input-title" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="input-author" class="control-label">Author</label>
+                    <input data-ng-model="books.doc.author" type="text" class="form-control" id="input-author" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="input-desc" class="control-label">Book description</label>
+                    <textarea data-ng-model="books.doc.description" class="form-control" id="input-desc" placeholder="Give a summary of the book"></textarea>
+                </div>
 
-<!-- TODO: Create input elements with angular for displaying all forms -->
+                <div class="form-group">
+                    <button data-ng-click="save()" class="btn btn-primary">Save changes</button>
+                    <button data-ng-click="delete()" class="btn btn-danger">Delete book</button>
+                </div>
+            </fieldset>
+        </form>
 
-<!-- TODO: Create buttons for delete and save with angular -->
-
+    </div>
+</div>

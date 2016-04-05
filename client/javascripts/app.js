@@ -20,7 +20,7 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         });
 
         // Operations on 1 book
-        $routeProvider.when('/books/:id', {
+        $routeProvider.when('/books/:_id', {
             templateUrl: './partials/book-detail.html',
             controller: BookDetailCtrl
         });

@@ -13,19 +13,15 @@ function BookDetailCtrl($scope, $routeParams, $location, booksService) {
 
     // GET 1 book
     if ($routeParams.id !== 0) {
-        $scope.books = booksService.books.get({_id: $routeParams.id}, function () {
+        $scope.books = booksService.books.get({_id: $routeParams._id}, function () {
             console.log('$scope.requests ', $scope.requests);
-            $scope.status = 'Editing ';
         });
     }
 
-    if ($routeParams.id == 'new') {
-        $scope.status = 'Adding new book' ;
-    }
 
     // DELETE book
-    $scope.removeOne = function () {
-        booksService.books.delete({_id: $routeParams.id});
+    $scope.delete= function () {
+        booksService.books.delete({_id: $routeParams._id});
         console.log('deleting');
         $location.path("/books");
     };
@@ -44,7 +40,7 @@ function BookDetailCtrl($scope, $routeParams, $location, booksService) {
 
         } else {
             console.log('Entering save');
-            booksService.books.save({}, $scope.books.doc, function (res) {
+            booksService.books.save($scope.books.doc, function (res) {
                 console.log(res);
             });
             $location.path("/books");
