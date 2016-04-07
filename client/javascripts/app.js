@@ -8,6 +8,7 @@
 var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
+        "use strict";
 
         $routeProvider.when('/about', {
             templateUrl: './partials/about.html',

@@ -20,7 +20,7 @@ function BookDetailCtrl($scope, $routeParams, $location, booksService) {
 
 
     // DELETE book
-    $scope.delete= function () {
+    $scope.delete = function () {
         booksService.books.delete({_id: $routeParams._id});
         console.log('deleting');
         $location.path("/books");
