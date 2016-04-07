@@ -64,8 +64,13 @@ describe('API Routing for CRUD operations on books', function () {
             request
                 .get('/books')
                 .expect(200)                                                // supertest
+<<<<<<< HEAD
                 .expect('Content-Type', /application.json/)                 // supertest
                 .expect('Content-Type', 'utf-8')                            // supertest
+=======
+               .expect('Content-Type', /application.json/)                 // supertest
+              .expect('Content-Type', 'utf-8')                            // supertest
+>>>>>>> master
                 .end(function (err, res) {
                     if (err) {
                         throw err;
@@ -94,9 +99,15 @@ describe('API Routing for CRUD operations on books', function () {
                         "description": "Book is updated."
                     }
                 })
+<<<<<<< HEAD
                .expect(200)                                                // supertest
               // .expect('Content-Type', /application.json/)                 // supertes
               // .expect('Content-Type', 'utf-8')                            // supertest
+=======
+               // .expect(200)                                                // supertest
+                //.expect('Content-Type', /application.json/)                 // supertest
+               // .expect('Content-Type', 'utf-8')                            // supertest
+>>>>>>> master
                 .end(function (err, res) {
                     if (err) {
                         throw err;
