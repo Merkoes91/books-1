@@ -70,7 +70,7 @@ exports.detail = function (req, res) {
     var conditions,
         fields;
 
-    conditions = {_id: req.params.id};
+    conditions = {_id: req.params._id};
     fields = {};
 
     Book
@@ -96,30 +96,37 @@ exports.detail = function (req, res) {
  */
 
 exports.updateOne = function (req, res) {
+    console.log(req.body.doc);
     var conditions =
         {_id: req.params._id},
         update = {
             title: req.body.doc.title || '',
             author: req.body.doc.author || '',
-            description: req.body.doc.description || ''
+            description: req.body.doc.description || '',
+            imagelink: req.body.doc.imagelink || ''
         },
+        options = {multi: false},
         callback = function (err, doc) {
             var retObj = {
-                meta: {"action": "create",
+                meta: {
+                    "action": "update",
                     'timestamp': new Date(),
-                    filename: __filename},
-                doc: doc, // Only ONE object
+                    filename: __filename,
+                    'doc': doc,
+                    'update': update
+                },
+                doc: update,
                 err: err
             };
+
             return res.send(retObj);
         };
 
     Book
-        .findOneAndUpdate(conditions, update,callback);
-
+        .findOneAndUpdate(conditions, update, options, callback);
 };
 
-    /**
+/**
  * DELETE
  * remove @ http://mongoosejs.com/docs/api.html#model_Model-remove
  * @param req
@@ -132,16 +139,16 @@ exports.updateOne = function (req, res) {
  * Controller to delete _one_ books.
  */
 
-exports.deleteOne = function (req, res) {
+exports.delete = function (req, res) {
     var conditions,
         callback;
-    console.log('Deleting book. ', req.params.id);
+    console.log('Deleting book. ', req.params._id);
 
     conditions = {_id: req.params._id};
     callback = function (err, doc) {
 
         var retObj = {
-            meta: {"action": "create",
+            meta: {"action": "delete",
                 'timestamp': new Date(),
                 filename: __filename},
             doc: doc, // Only ONE object

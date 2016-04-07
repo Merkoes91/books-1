@@ -8,11 +8,11 @@
 var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        // Get all books
-      //  $routeProvider.when('/about', {
-       //     templateUrl: './partials/about.html',
-      //      controller: aboutMeCTRL
-      //  });
+        "use strict";
+
+        $routeProvider.when('/about', {
+            templateUrl: './partials/about.html',
+        });
 
         $routeProvider.when('/books', {
             templateUrl: './partials/book-list.html',
@@ -20,9 +20,14 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         });
 
         // Operations on 1 book
-        $routeProvider.when('/books/:id', {
+        $routeProvider.when('/books/:_id', {
             templateUrl: './partials/book-detail.html',
             controller: BookDetailCtrl
+        });
+
+
+        $routeProvider.when('/', {
+            redirectTo: '/books'
         });
 
         // otherwise

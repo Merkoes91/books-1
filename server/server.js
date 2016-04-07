@@ -7,7 +7,6 @@
  * @type {exports}
  */
     var fs = require('fs'),                      // used to read files from the file system(__dirname)
-        http = require('http'),                  // enables http protocol
         express = require('express'),           // Fast, unopinionated minimalist web framework for Node.js
         bodyParser = require('body-parser'),    // this does not handle multipart bodies due to their complex and typically large nature
         env,            // save the enviroment
@@ -78,9 +77,7 @@
  */
     if (config.debug) {
         app.use(function (req, res, next) {
-           // console.log('%s %s %s', req.method, req.url, req.path);
-
-            console.log(req.body);
+            console.log('%s %s %s', req.method, req.url, req.path);
             next(); // required to move on
         });
     }
