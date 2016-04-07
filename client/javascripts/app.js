@@ -9,6 +9,10 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
 
+        $routeProvider.when('/about', {
+            templateUrl: './partials/about.html',
+        });
+
         $routeProvider.when('/books', {
             templateUrl: './partials/book-list.html',
             controller: BookListCtrl
@@ -18,6 +22,11 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         $routeProvider.when('/books/:_id', {
             templateUrl: './partials/book-detail.html',
             controller: BookDetailCtrl
+        });
+
+
+        $routeProvider.when('/', {
+            redirectTo: '/books'
         });
 
         // otherwise
