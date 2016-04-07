@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<!-- TODO: Create angular app from html page -->
-<html>
+<html data-ng-app="myApp">
 <head>
     <title>Book demo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
-<body>
+<body ng-cloak>
 
 <h1>Book demo</h1>
 
@@ -16,12 +19,13 @@
 <!-- TODO: Create angular tag for displaying whoami -->
 
 <!-- Lib -->
-<!-- TODO: Include Angularjs libraries -->
-
-
+<script src="./javascripts/lib/angular.min.js"></script>
+<script src="./javascripts/lib/angular-route.min.js"></script>
+<script src="./javascripts/lib/angular-resource.min.js"></script>
 <!-- App -->
-<!-- TODO: Include application libraries -->
-
+<script src="./javascripts/app.js"></script>
+<script src="./javascripts/controllers.js"></script>
+<script src="./javascripts/services.js"></script>
 
 </body>
 </html>
