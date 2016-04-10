@@ -16,8 +16,9 @@
         model_files,
         app,
         routes_path,
-        route_files;
-
+        route_files,
+        passport,
+        expressSession;
 /**
  * Load configuration
  * @type {*|string}
@@ -81,6 +82,8 @@
             next(); // required to move on
         });
     }
+
+
 
 /**
  * Middleware to serve static page

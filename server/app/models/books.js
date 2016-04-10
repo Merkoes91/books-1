@@ -39,6 +39,7 @@
         title: {type: String, required: true, unique: true},
         author: {type: String, required: true},
         description: {type: String},
+        imageURL: {type: String, required: true},
         modificationDate: {type: Date, "default": Date.now}
     }, {collection: 'books'});
 
@@ -64,8 +65,8 @@
         return (val !== undefined && val !== null && val.length >= 2);
     }, 'Invalid title');
 
-    /**
-     * Instructions, hints and questions.
+
+    /* * Instructions, hints and questions.
      * - Instruction: Create a model for the defined schema.
      * - Question: What are the differences between a 'Model' and a 'Schema Type'? Use the references to motivate your answer.
      * @class Model/Book

@@ -1,0 +1,7 @@
+<input class="search" ng-model="query" placeholder="search...">
+
+<div class="row">
+    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-repeat="movie in movies.doc | filter:query">
+        <a href="/#/movies/{{movie._id}}" class="thumbnail"><img src="{{movie.poster}}" /></a>
+    </div>
+</div>

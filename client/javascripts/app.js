@@ -11,7 +11,7 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         "use strict";
 
         $routeProvider.when('/about', {
-            templateUrl: './partials/about.html',
+            templateUrl: './partials/about.html'
         });
 
         $routeProvider.when('/books', {
@@ -26,13 +26,15 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         });
 
 
-        $routeProvider.when('/', {
-            redirectTo: '/books'
+        $routeProvider.when('/movies', {
+            templateUrl: './partials/movie-list.html',
+            controller: MovieListCtrl
+        });
+
+        $routeProvider.when('/movies/:_id', {
+            templateUrl: './partials/movie-detail.html',
+            controller: MovieDetailCTRL
         });
 
         // otherwise
-        $routeProvider.otherwise({
-            redirectTo: '/books'
-        });
-
     }]);

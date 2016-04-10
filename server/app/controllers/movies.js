@@ -2,16 +2,16 @@
 "use strict";
 
 var mongoose = require('mongoose'),
-    Book = mongoose.model('Book');
+    Movie = mongoose.model('Movie');
 
 /**
- * CREATE a book
+ * CREATE a movie
  * --------------------
- * Controller to create a book.
+ * Controller to create a movie
  **/
 
 exports.create = function (req, res) {
-    var doc = new Book(req.body);
+    var doc = new Movie(req.body);
     console.log('Creating' + doc.title);
     doc.save(function (err) {
 
@@ -28,9 +28,9 @@ exports.create = function (req, res) {
 };
 
 /**
- * RETRIEVE _all_ books
+ * RETRIEVE _all_ movies
  * --------------------
- * Controller to retrieve _all_ books.
+ * Controller to retrieve _all_ movies
  */
 exports.list = function (req, res) {
     var conditions,
@@ -41,7 +41,7 @@ exports.list = function (req, res) {
     fields = {};
     sort = {'modificationDate': -1};
 
-    Book
+    Movie
         .find(conditions, fields)
         .sort(sort)
         .exec(function (err, doc) {
@@ -59,9 +59,9 @@ exports.list = function (req, res) {
 };
 
 /**
- * RETRIEVE _one_ book
+ * RETRIEVE _one_ movies
  * --------------------
- * Controller to retrieve _one_ books.
+ * Controller to retrieve _one_ movies
  */
 
 exports.detail = function (req, res) {
@@ -71,7 +71,7 @@ exports.detail = function (req, res) {
     conditions = {_id: req.params._id};
     fields = {};
 
-    Book
+    Movie
         .findOne(conditions, fields)
         .exec(function (err, doc) {
 
@@ -90,7 +90,7 @@ exports.detail = function (req, res) {
 /**
  * UPDATE book
  * --------------------
- * Controller to update _one_ books.
+ * Controller to update _one_ movies
  */
 
 exports.updateOne = function (req, res) {
@@ -99,9 +99,10 @@ exports.updateOne = function (req, res) {
         {_id: req.params._id},
         update = {
             title: req.body.doc.title || '',
-            author: req.body.doc.author || '',
-            description: req.body.doc.description || '',
-            imageURL: req.body.doc.imageURL || ''
+            year: req.body.doc.author || '',
+            imdbUrl: req.body.doc.imdbUrl || '',
+            imdbRating: req.body.doc.imdbRating || '',
+            poster: req.body.doc.poster || '',
         },
         options = {multi: false},
         callback = function (err, doc) {
@@ -116,13 +117,13 @@ exports.updateOne = function (req, res) {
                 doc: update,
                 err: err
             };
-
             return res.send(retObj);
         };
 
-    Book
+    Movie
         .findOneAndUpdate(conditions, update, options, callback);
 };
+
 
 /**
  * DELETE
@@ -140,7 +141,7 @@ exports.updateOne = function (req, res) {
 exports.delete = function (req, res) {
     var conditions,
         callback;
-    console.log('Deleting book. ', req.params._id);
+    console.log('Deleting Movie. ', req.params._id);
 
     conditions = {_id: req.params._id};
     callback = function (err, doc) {
@@ -155,5 +156,5 @@ exports.delete = function (req, res) {
         return res.send(retObj);
     };
 
-    Book.remove(conditions, callback);
+    Movie.remove(conditions, callback);
 };
