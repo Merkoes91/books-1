@@ -12,8 +12,27 @@ function MovieListCtrl($scope, moviesService) {
     $scope.movies = moviesService.movies.get();
 }
 
-function MovieDetailCTRL($scope, $routeParams, $location, moviesService) {
+function MovieDetailCTRL($scope, $routeParams,$http, $location, moviesService) {
     "use strict";
+
+    $scope.getMovieInfo = function (imdbId) {
+        var url = 'http://www.omdbapi.com/?i=' + imdbId;
+        console.log(url);
+        $http.get(url).then(function (response) {
+            var movie = response['data'];
+            console.log(movie);
+            $scope.movies.doc = new Object();
+            $scope.movies.doc.title = movie['Title'];
+            $scope.movies.doc.year = movie['Year'];
+            $scope.movies.doc.imdbUrl = 'http://www.imdb.com/title/' + imdbId + '/';
+            $scope.movies.doc.imdbRating = movie['imdbRating'];
+            $scope.movies.doc.poster = movie['Poster'];
+
+        }, function (response) {
+            console.log(err);
+        });
+    };
+
 
     // GET 1 movie
     if ($routeParams.id !== 0) {
@@ -25,9 +44,9 @@ function MovieDetailCTRL($scope, $routeParams, $location, moviesService) {
 
     // DELETE movie
     $scope.deleteMovie = function () {
-        moviesService.books.delete({_id: $routeParams._id});
+        moviesService.movies.delete({_id: $routeParams._id});
         console.log('deleting');
-        $location.path("/books");
+        $location.path("/movies");
     };
 
     // CREATE, UPDATE movie

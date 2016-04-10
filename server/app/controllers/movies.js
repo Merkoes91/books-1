@@ -141,7 +141,7 @@ exports.updateOne = function (req, res) {
 exports.delete = function (req, res) {
     var conditions,
         callback;
-    console.log('Deleting Movie. ', req.params._id);
+    console.log('Deleting book. ', req.params._id);
 
     conditions = {_id: req.params._id};
     callback = function (err, doc) {

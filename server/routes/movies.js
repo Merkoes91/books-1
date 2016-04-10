@@ -34,7 +34,7 @@ router.get('/movies', MovieController.list).
 router.put('/movies/:_id', MovieController.updateOne);
 
 // DELETE
-router.delete('/movies:_id', MovieController.delete);
+router.delete('/movies/:_id', MovieController.delete);
 
 
 module.exports = router;

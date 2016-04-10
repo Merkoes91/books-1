@@ -2,6 +2,11 @@
     <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6">
         <form class="form-vertical" role="form">
             <fieldset>
+                <div class="form-group">
+                    <label for="input-imdbId" class="control-label">ADD MOVIE BY IMDB ID:</label>
+                    <input data-ng-model="imdbId" type="text" class="form-control" id="input-imdbId" >
+                    <button data-ng-click="getMovieInfo(imdbId)" class="btn btn-primary">Get movie information</button>
+                </div>
 
                 <div class="form-group">
                     <label for="input-title" class="control-label">Title</label>
@@ -27,7 +32,7 @@
 
                 <div class="form-group">
                     <button data-ng-click="saveMovie()" class="btn btn-primary">Save changes</button>
-                    <button data-ng-click="deleteMovie()" class="btn btn-danger">Delete book</button>
+                    <button data-ng-click="deleteMovie()" class="btn btn-danger">Delete Movie</button>
                 </div>
             </fieldset>
         </form>
@@ -35,13 +40,3 @@
 </div>
 
 
-
-title: {type: String, required: true, unique: true},
-year: {type: String},
-imbdUrl: {type: String},
-imdbId: {type: String},
-imdbRating: {type: String},
-actors: {type: String, required: true},
-plot: {type: String},
-poster: {type: String, required: true},
-modificationDate: {type: Date, "default": Date.now}
