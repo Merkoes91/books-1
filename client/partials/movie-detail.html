@@ -1,11 +1,23 @@
 <div class="row">
+
+    <div ng-show="($root.EachScreenLoad || $root.showSpinner) && !$root.preFetch" class="loader-screen">
+        <div ng-show="($root.EachScreenLoad || $root.showSpinner)" class="loader"></div>
+    </div>
+
     <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6">
         <form class="form-vertical" role="form">
             <fieldset>
                 <div class="form-group">
-                    <label for="input-imdbId" class="control-label">ADD MOVIE BY IMDB ID:</label>
-                    <input data-ng-model="imdbId" type="text" class="form-control" id="input-imdbId" >
-                    <button data-ng-click="getMovieInfo(imdbId)" class="btn btn-primary">Get movie information</button>
+                    <label for="input-query" class="control-label">SEARCH TITLE</label>
+                    <input data-ng-model="querySearchString" type="text" class="form-control" id="input-query" >
+                    <button data-ng-click="queryMovie(querySearchString)" class="btn btn-primary">Get movie information</button>
+                </div>
+
+                <div ng-show="searchResults">
+                    <h1>Did you mean?</h1>
+                    <ul class="list-group">
+                      <li class="list-group-item searchResult"  ng-repeat="result in searchResults" data-ng-click="bindResult(result)">{{result['Title']}}, {{result['Year']}}</li>
+                    </ul>
                 </div>
 
                 <div class="form-group">

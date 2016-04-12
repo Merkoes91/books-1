@@ -1,5 +1,15 @@
 /*jslint node: true */
 /*globals myApp */
+String.prototype.replaceAll = function(search, replace)
+{
+    //if replace is not sent, return original string otherwise it will
+    //replace search string with 'undefined'.
+    if (replace === undefined) {
+        return this.toString();
+    }
+
+    return this.replace(new RegExp('[' + search + ']', 'g'), replace);
+};
 
 myApp.controller('parentCtrl', function ($scope) {
     "use strict";
@@ -15,24 +25,31 @@ function MovieListCtrl($scope, moviesService) {
 function MovieDetailCTRL($scope, $routeParams,$http, $location, moviesService) {
     "use strict";
 
-    $scope.getMovieInfo = function (imdbId) {
-        var url = 'http://www.omdbapi.com/?i=' + imdbId;
-        console.log(url);
-        $http.get(url).then(function (response) {
-            var movie = response['data'];
-            console.log(movie);
-            $scope.movies.doc = new Object();
-            $scope.movies.doc.title = movie['Title'];
-            $scope.movies.doc.year = movie['Year'];
-            $scope.movies.doc.imdbUrl = 'http://www.imdb.com/title/' + imdbId + '/';
-            $scope.movies.doc.imdbRating = movie['imdbRating'];
-            $scope.movies.doc.poster = movie['Poster'];
+    $scope.bindResult = function(result) {
+        $scope.movies.doc = {};
 
-        }, function (response) {
-            console.log(err);
-        });
+        $scope.movies.doc.title = result['Title'];
+        $scope.movies.doc.year = result['Year'];
+        $scope.movies.doc.imdbUrl = "http://www.imdb.com/title/" + result['imdbID'];
+        $scope.movies.doc.poster = result['Poster'];
+
+        $scope.searchResults = "";
     };
 
+    $scope.queryMovie = function(querySearchString) {
+
+        querySearchString = querySearchString.replaceAll(" ", "+");
+        console.log('fetching data from: http://www.omdbapi.com/?s=' + querySearchString + '&type=movie');
+
+        var url = 'http://www.omdbapi.com/?s=' + querySearchString + '&type=movie';
+
+        $http.get(url).then(function (response) {
+            $scope.searchResults = response['data']['Search'];
+            console.log(response['data']['Search']);
+        }, function (error) {
+            console.log(error);
+        });
+    };
 
     // GET 1 movie
     if ($routeParams.id !== 0) {

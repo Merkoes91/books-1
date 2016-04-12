@@ -37,4 +37,8 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute'])
         });
 
         // otherwise
+    }]).
+
+    config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push('APIInterceptor');
     }]);
