@@ -1,54 +1,54 @@
-<div class="row">
-
-    <div ng-show="($root.EachScreenLoad || $root.showSpinner) && !$root.preFetch" class="loader-screen">
-        <div ng-show="($root.EachScreenLoad || $root.showSpinner)" class="loader"></div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{editOrAdd}}</h3>
     </div>
-
-    <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6">
+    <div class="modal-body">
         <form class="form-vertical" role="form">
             <fieldset>
-                <div class="form-group">
+            <div ng-hide="movie">
+                <div class="form-group" >
                     <label for="input-query" class="control-label">SEARCH TITLE</label>
                     <input data-ng-model="querySearchString" type="text" class="form-control" id="input-query" >
-                    <button data-ng-click="queryMovie(querySearchString)" class="btn btn-primary">Get movie information</button>
+                    <button data-ng-click="queryMovie(querySearchString)" class="btn btn-primary">Search movies</button>
                 </div>
 
                 <div ng-show="searchResults">
-                    <h1>Did you mean?</h1>
+                    <h1><span class="badge">{{totalResults}} results </span> Did you mean?</h1>
                     <ul class="list-group">
                       <li class="list-group-item searchResult"  ng-repeat="result in searchResults" data-ng-click="bindResult(result)">{{result['Title']}}, {{result['Year']}}</li>
                     </ul>
                 </div>
+            </div>
+                <div ng-show="movie">
+                <div>
+                    <div class="form-group">
+                        <label for="input-title" class="control-label">Title</label>
+                        <input data-ng-model="movie.title" type="text" class="form-control" id="input-title" placeholder="Hitchhikers guide to the galaxy" >
+                    </div>
+                    <div class="form-group">
+                        <label for="input-year" class="control-label">Year</label>
+                        <input data-ng-model="movie.year" type="text" class="form-control" id="input-year" placeholder="2001" >
+                    </div>
+                    <div class="form-group">
+                        <label for="input-imdbUrl" class="control-label">IMDB Url</label>
+                        <input data-ng-model="movie.imdbUrl" type="text" class="form-control" id="input-imdbUrl" placeholder="http://www.imdb.com/title/tt3385516/" >
+                    </div>
+                    <div class="form-group">
+                        <label for="input-imdbRating" class="control-label">IMDB Rating</label>
+                        <input data-ng-model="movie.imdbRating" type="text" class="form-control" id="input-imdbRating" placeholder="8.0" >
+                    </div>
 
-                <div class="form-group">
-                    <label for="input-title" class="control-label">Title</label>
-                    <input data-ng-model="movies.doc.title" type="text" class="form-control" id="input-title" placeholder="Hitchhikers guide to the galaxy" >
+                    <div class="form-group">
+                        <label for="input-img" class="control-label">Poster URL</label>
+                        <input  data-ng-model="movie.poster" type="text" class="form-control" id="input-img" placeholder="https://sung650.files.wordpress.com/2015/11/5-perfume-best-movie-poster.jpg?w=400&h=583" >
+                        <img ng-src="{{movie.poster}}" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="input-year" class="control-label">Year</label>
-                    <input data-ng-model="movies.doc.year" type="text" class="form-control" id="input-year" placeholder="2001" >
-                </div>
-                <div class="form-group">
-                    <label for="input-imdbUrl" class="control-label">IMDB Url</label>
-                    <input data-ng-model="movies.doc.imdbUrl" type="text" class="form-control" id="input-imdbUrl" placeholder="http://www.imdb.com/title/tt3385516/" >
-                </div>
-                <div class="form-group">
-                    <label for="input-imdbRating" class="control-label">IMDB Rating</label>
-                    <input data-ng-model="movies.doc.imdbRating" type="text" class="form-control" id="input-imdbRating" placeholder="8.0" >
-                </div>
-
-                <div class="form-group">
-                    <label for="input-img" class="control-label">Poster URL</label>
-                    <input  data-ng-model="movies.doc.poster" type="text" class="form-control" id="input-img" placeholder="https://sung650.files.wordpress.com/2015/11/5-perfume-best-movie-poster.jpg?w=400&h=583" >
-                </div>
-
-                <div class="form-group">
-                    <button data-ng-click="saveMovie()" class="btn btn-primary">Save changes</button>
-                    <button data-ng-click="deleteMovie()" class="btn btn-danger">Delete Movie</button>
                 </div>
             </fieldset>
         </form>
     </div>
-</div>
-
-
+    <div class="modal-footer">
+        <button data-ng-click="saveMovie()" ng-show="movie" class="btn btn-primary">Save changes</button>
+        <button data-ng-click="deleteMovie()" ng-show="movie" class="btn btn-danger">Delete Movie</button>
+        <button data-ng-click="cancel()" class="btn btn-danger">Cancel</button>
+    </div>

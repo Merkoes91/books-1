@@ -1,6 +1,7 @@
-<input class="search" ng-model="query" placeholder="search...">
 
-<div class="row">
+
+<div class="row" ng-controller="BookListCtrl">
+    <input class="search" ng-model="query" placeholder="search...">
     <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-repeat="book in books.doc | filter:query">
         <a href="/#/books/{{book._id}}" class="thumbnail"><img ng-src=="{{book.imageURL}}" /></a>
     </div>

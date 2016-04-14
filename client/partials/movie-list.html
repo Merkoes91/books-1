@@ -1,7 +1,23 @@
-<input class="search" ng-model="query" placeholder="search...">
+<div class="row" ng-controller="MovieListCtrl">
+    <input class="search" ng-model="query" placeholder="search...">
 
-<div class="row">
-    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-repeat="movie in movies.doc | filter:query">
-        <a href="/#/movies/{{movie._id}}"><img ng-src="{{movie.poster}}" /></a>
+    <div data-ng-repeat="movie in movies.doc | filter:query" ng-controller="mediaItemCtrl" data-ng-click="collapse()">
+        <div class="mediaItem col-xs-12 col-md-4 col-lg-2">
+            <img ng-src="{{movie.poster}}" />
+        </div>
+
+        <div uib-collapse="isCollapsed" >
+            <div class="mediaInfo col-xs-2 col-md-4 col-lg-12">
+                    {{movie.title}}
+                    {{movie.year}}
+                <button class="btn btn-primary" data-ng-click="open('lg', movie)">Edit this movie</button>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-click="open('lg')">
+        +
     </div>
 </div>

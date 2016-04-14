@@ -1,0 +1,30 @@
+{
+  "name": "meanwithbooks",
+  "homepage": "https://github.com/Merkoes91/books-1",
+  "authors": [
+    "MarkodeRoos <markodr91@hotmail.com>"
+  ],
+  "description": "a personal project",
+  "main": "index.html",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "MEAN",
+    "ANGULAR",
+    "BOOTSTRAP",
+    "MONGO"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "^1.3.1"
+  }
+}

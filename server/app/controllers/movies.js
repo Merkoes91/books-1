@@ -96,13 +96,13 @@ exports.detail = function (req, res) {
 exports.updateOne = function (req, res) {
     console.log(req.body.doc);
     var conditions =
-        {_id: req.params._id},
+        {_id: req.body._id},
         update = {
-            title: req.body.doc.title || '',
-            year: req.body.doc.author || '',
-            imdbUrl: req.body.doc.imdbUrl || '',
-            imdbRating: req.body.doc.imdbRating || '',
-            poster: req.body.doc.poster || '',
+            title: req.body.title || '',
+            year: req.body.author || '',
+            imdbUrl: req.body.imdbUrl || '',
+            imdbRating: req.body.imdbRating || '',
+            poster: req.body.poster || ''
         },
         options = {multi: false},
         callback = function (err, doc) {

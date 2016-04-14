@@ -11,92 +11,126 @@ String.prototype.replaceAll = function(search, replace)
     return this.replace(new RegExp('[' + search + ']', 'g'), replace);
 };
 
-myApp.controller('parentCtrl', function ($scope) {
-    "use strict";
-    $scope.text = 'this is the parent controller';
+
+myApp.controller('mediaItemCtrl', function ($scope) {
+    // Collapse directive from angular-bootstrap
+    $scope.isCollapsed = !$scope.isCollapsed;
+
+    $scope.collapse = function () {
+        $scope.isCollapsed = !$scope.isCollapsed;
+        console.log($scope.isCollapsed);
+    };
 });
 
-function MovieListCtrl($scope, moviesService) {
+myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesService) {
     "use strict";
     //get all movies
     $scope.movies = moviesService.movies.get();
-}
 
-function MovieDetailCTRL($scope, $routeParams,$http, $location, moviesService) {
+    //enable animations for modal from angular-bootstrap
+    $scope.animationsEnabled = true;
+
+    // open modal angular-bootstrap
+    $scope.open = function (size, movie) {
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: './partials/movie-detail.html',
+            controller: 'MovieDetailCtrl',
+            size: size,
+            resolve: {
+                movie: function () {
+                    return movie;
+                }
+            }
+        });
+
+       modalInstance.result.then(function () {
+           $scope.movies = moviesService.movies.get();
+        });
+    };
+});
+
+myApp.controller('MovieDetailCtrl', function ($rootScope, $scope, $http, $location, $uibModalInstance, movie, moviesService) {
     "use strict";
 
+    $scope.editOrAdd = 'Add a movie';
+    if(movie) { $scope.editOrAdd = 'Edit this movie'; }
+
+    $scope.movie = movie;
+
+
     $scope.bindResult = function(result) {
-        $scope.movies.doc = {};
+        $scope.movie = {};
 
-        $scope.movies.doc.title = result['Title'];
-        $scope.movies.doc.year = result['Year'];
-        $scope.movies.doc.imdbUrl = "http://www.imdb.com/title/" + result['imdbID'];
-        $scope.movies.doc.poster = result['Poster'];
-
+        $scope.movie.title = result['Title'];
+        $scope.movie.year = result['Year'];
+        $scope.movie.imdbUrl = "http://www.imdb.com/title/" + result['imdbID'];
+        $scope.movie.poster = result['Poster'];
+        console.log($scope.movie);
         $scope.searchResults = "";
     };
 
-    $scope.queryMovie = function(querySearchString) {
 
+    $scope.queryMovie = function(querySearchString) {
         querySearchString = querySearchString.replaceAll(" ", "+");
         console.log('fetching data from: http://www.omdbapi.com/?s=' + querySearchString + '&type=movie');
 
         var url = 'http://www.omdbapi.com/?s=' + querySearchString + '&type=movie';
 
         $http.get(url).then(function (response) {
+            $scope.totalResults = response['data']['totalResults'];
             $scope.searchResults = response['data']['Search'];
-            console.log(response['data']['Search']);
         }, function (error) {
             console.log(error);
         });
     };
 
-    // GET 1 movie
-    if ($routeParams.id !== 0) {
-        $scope.movies = moviesService.movies.get({_id: $routeParams._id}, function () {
-            console.log('$scope.requests ', $scope.requests);
-        });
-    }
-
-
     // DELETE movie
     $scope.deleteMovie = function () {
-        moviesService.movies.delete({_id: $routeParams._id});
+        moviesService.movies.delete({_id: $scope.movie._id});
         console.log('deleting');
-        $location.path("/movies");
+         $uibModalInstance.close(movie);
+         $location.path('/movies');
     };
 
     // CREATE, UPDATE movie
     $scope.saveMovie = function () {
-        if ($scope.movies.doc && $scope.movies.doc._id !== undefined) {
+        if ($scope.editOrAdd == 'Edit this movie') {
             console.log('Entering movie update');
-            moviesService.movies.update({_id: $scope.movies.doc._id}, $scope.movies, function (res) {
+            console.log(movie);
+            moviesService.movies.update({_id: $scope.movie._id}, $scope.movie, function (res) {
                 console.log(res);
             });
-            $location.path("/movies");
+            $uibModalInstance.close(movie);
+            $location.path('/movies');
 
         } else {
             console.log('Entering movie save');
-            moviesService.movies.save($scope.movies.doc, function (res) {
+            moviesService.movies.save($scope.movie, function (res) {
                 console.log(res);
             });
-            $location.path("/movies");
+            $uibModalInstance.close(movie);
         }
     };
 
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
 
-}
 
-function BookListCtrl($scope, booksService) {
+
+myApp.controller('BookListCtrl', function ($scope, booksService) {
     "use strict";
     //get all books
     $scope.books = booksService.books.get();
-}
+});
 
-function BookDetailCtrl($scope, $routeParams, $location, $http, booksService) {
+myApp.controller('BookDetailCtrl', function ($scope, $routeParams, $location, $http, booksService) {
     "use strict";
 
-       $scope.getBookData = function (isbn) {
+    $scope.getBookData = function (isbn) {
 
         var url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' + isbn + '&jscmd=data&callback=JSON_CALLBACK';
         $http.jsonp(url).success(function (data) {
@@ -143,7 +177,8 @@ function BookDetailCtrl($scope, $routeParams, $location, $http, booksService) {
             $location.path("/books");
         }
     };
-}
+});
+
 
 myApp.controller('myCtrl', function ($scope) {
     "use strict";
@@ -153,3 +188,4 @@ myApp.controller('myCtrl', function ($scope) {
     $scope.picture = "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xtp1/v/t1.0-9/1422382_10204072021618271_4851143020002677795_n.jpg?oh=9c816c78eebe3a24f3a3e030e4906252&oe=57730180&__gda__=1471914662_2f5e118666ce64044f9d73b5928fa59b";
     $scope.aboutMe = "Hi, my name is Marko de Roos, Currently 24 years of age and residing in Ede, Netherlands.  This is an assignment for school Learning about the MEAN STACK.";
 });
+

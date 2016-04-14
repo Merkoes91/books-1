@@ -36,7 +36,6 @@
 /**
  * Debugging is in enabled in the development enviroment so we can see anything mongoose does in our console
  */
-    console.log(config.debug);
 
     mongoose.connection.on('error', function (err) {
         console.error('MongoDB error: %s', err);
@@ -78,7 +77,7 @@
  */
     if (config.debug) {
         app.use(function (req, res, next) {
-            console.log('%s %s %s', req.method, req.url, req.path);
+           console.log('%s %s %s', req.method, req.url, req.path);
             next(); // required to move on
         });
     }
