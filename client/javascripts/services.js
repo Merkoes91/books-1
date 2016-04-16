@@ -40,4 +40,16 @@
             dbMovies.movies = $resource('/api/movies/:_id', {},  actions);
             return dbMovies;
         }])
+
+        .factory('movieInfoService', ['$resource', '$http',
+
+            function ($resource) {
+                var actions = {
+                        'get': {method: 'GET'}
+                    },
+                     = {};
+                //REST URL to server
+                dbMovies.movies = $resource('/api/movies/:_id', {},  actions);
+                return dbMovies;
+            }])
 }());
