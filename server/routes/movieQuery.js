@@ -4,8 +4,6 @@
 
 /* jslint node: true */
 
-
-
 /** @module Routes for movies */
 /** @class */
 
@@ -21,13 +19,7 @@ var router = express.Router();
 
 var MovieQueryController = require('../app/controllers/movieQueries.js');
 
-// CREATE
-/** CREATE route for books */
-
-
-// RETRIEVE ALL or 1 books (document)
-router.get('/movies/query/:_searchString', MovieQueryController.queryFunction);
-
-
-
+router.get('/movies/query/:_searchString', MovieQueryController.list)
+       .get('/movies/query/id/:_id', MovieQueryController.detail)
+        .get('/movies/config', MovieQueryController.config);
 module.exports = router;

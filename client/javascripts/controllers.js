@@ -18,14 +18,18 @@ myApp.controller('mediaItemCtrl', function ($scope) {
 
     $scope.collapse = function () {
         $scope.isCollapsed = !$scope.isCollapsed;
-        console.log($scope.isCollapsed);
     };
 });
 
 myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesService) {
     "use strict";
     //get all movies
-    $scope.movies = moviesService.movies.get();
+    moviesService.movies.get().$promise.then( function (res) {
+        $scope.movies = res;
+        console.log(res);
+    }, function(err) {
+        console.log('Error:' + err);
+    });
 
     //enable animations for modal from angular-bootstrap
     $scope.animationsEnabled = true;
@@ -51,38 +55,46 @@ myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesServi
     };
 });
 
-myApp.controller('MovieDetailCtrl', function ($rootScope, $scope, $http, $location, $uibModalInstance, movie, moviesService) {
+myApp.controller('MovieDetailCtrl', function ($scope, $location,$http, $uibModalInstance, movie, moviesService, moviesQueryService, moviesQueryByIdService) {
     "use strict";
 
     $scope.editOrAdd = 'Add a movie';
-    if(movie) { $scope.editOrAdd = 'Edit this movie'; }
-
     $scope.movie = movie;
 
+    if(movie) {
+        $scope.editOrAdd = movie.origTitle;
+    }
 
-    $scope.bindResult = function(result) {
-        $scope.movie = {};
-
-        $scope.movie.title = result['Title'];
-        $scope.movie.year = result['Year'];
-        $scope.movie.imdbUrl = "http://www.imdb.com/title/" + result['imdbID'];
-        $scope.movie.poster = result['Poster'];
-        console.log($scope.movie);
-        $scope.searchResults = "";
+    $scope.bindResult = function(id) {
+        moviesQueryByIdService.movie.get({_id: id}).$promise.then(function (res) {
+            $scope.movie  = {
+                "backdrop": 'http://image.tmdb.org/t/p/w1280/' + res['backdrop_path'],
+                "genres": res['genres'],
+                "homepage": res['homepage'],
+                "imdbId": res['imdb_id'],
+                "origLang": res['original_language'],
+                "origTitle": res['original_title'],
+                "plot": res['overview'],
+                "poster": 'http://image.tmdb.org/t/p/w780/' + res['poster_path'],
+                "prodCompanies": res['production_companies'],
+                "prodCountries": res['production_countries'],
+                "releaseDate": res['release_date'],
+                "releaseStatus": res['status']
+                };
+            $scope.saveMovie($scope.movie);
+        }, function (err) {
+            console.log(err);
+        })
     };
 
 
     $scope.queryMovie = function(querySearchString) {
         querySearchString = querySearchString.replaceAll(" ", "+");
-        console.log('fetching data from: http://www.omdbapi.com/?s=' + querySearchString + '&type=movie');
 
-        var url = 'http://www.omdbapi.com/?s=' + querySearchString + '&type=movie';
-
-        $http.get(url).then(function (response) {
-            $scope.totalResults = response['data']['totalResults'];
-            $scope.searchResults = response['data']['Search'];
-        }, function (error) {
-            console.log(error);
+        moviesQueryService.results.get({_searchString: querySearchString}).$promise.then(function (res) {
+            $scope.results = res.results;
+        }, function (err) {
+            console.log (err);
         });
     };
 
@@ -95,23 +107,14 @@ myApp.controller('MovieDetailCtrl', function ($rootScope, $scope, $http, $locati
     };
 
     // CREATE, UPDATE movie
-    $scope.saveMovie = function () {
-        if ($scope.editOrAdd == 'Edit this movie') {
-            console.log('Entering movie update');
-            console.log(movie);
-            moviesService.movies.update({_id: $scope.movie._id}, $scope.movie, function (res) {
-                console.log(res);
-            });
-            $uibModalInstance.close(movie);
-            $location.path('/movies');
-
-        } else {
+    $scope.saveMovie = function (movie) {
             console.log('Entering movie save');
-            moviesService.movies.save($scope.movie, function (res) {
+            moviesService.movies.save(movie).$promise.then(function (res) {
                 console.log(res);
+            }, function (err) {
+                console.log(err);
             });
-            $uibModalInstance.close(movie);
-        }
+            $uibModalInstance.close();
     };
 
     $scope.cancel = function () {

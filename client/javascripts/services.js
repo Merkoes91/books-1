@@ -41,15 +41,26 @@
             return dbMovies;
         }])
 
-        .factory('movieInfoService', ['$resource', '$http',
+        .factory('moviesQueryService', ['$resource', '$http',
 
             function ($resource) {
                 var actions = {
                         'get': {method: 'GET'}
                     },
-                     = {};
+                    query = {};
                 //REST URL to server
-                dbMovies.movies = $resource('/api/movies/:_id', {},  actions);
-                return dbMovies;
+                query.results = $resource('/api/movies/query/:_searchString', {},  actions);
+                return query;
+            }])
+        .factory('moviesQueryByIdService', ['$resource', '$http',
+
+            function ($resource) {
+                var actions = {
+                        'get': {method: 'GET'}
+                    },
+                    result = {};
+                //REST URL to server
+                result.movie = $resource('/api/movies/query/id/:_id', {},  actions);
+                return result;
             }])
 }());

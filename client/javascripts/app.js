@@ -31,12 +31,6 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute', 'ui.bootstrap'
             templateUrl: './partials/movie-list.html',
 
         });
-
-        $routeProvider.when('/movies/:_id', {
-            templateUrl: './partials/movie-detail.html',
-
-        });
-
         // otherwise
     }]);
 

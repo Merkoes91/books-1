@@ -12,20 +12,24 @@
         schemaName,
         modelName;
 
-
     schemaName = new Schema({
-        title: {type: String, required: true, unique: true},
-        year: {type: String},
-        imbdUrl: {type: String},
-        imdbId: {type: String},
-        imdbRating: {type: String},
-        actors: {type: Array},
+        backdrop: {type: String, "default": "N/A"},
+        genres: {type: Array},
+        homepage: {type: String, "default": 'N/A'},
+        imdbId: {type: String, unique: true},
+        origLang: {type: String},
+        origTitle: {type: String},
         plot: {type: String},
-        poster: {type: String, required: true},
-        modificationDate: {type: Date, "default": Date.now}
+        poster: {type: String},
+        prodCompanies: {type: Array},
+        prodCountries: {type: Array},
+        releaseDate: {type: Date},
+        releaseStatus: {type: String}
     }, {collection: 'movies'});
-
 
     modelName = "Movie";
     mongoose.model(modelName, schemaName);
 }());
+
+
+

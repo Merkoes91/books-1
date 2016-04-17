@@ -1,22 +1,14 @@
 <div class="row" ng-controller="MovieListCtrl">
     <input class="search" ng-model="query" placeholder="search...">
 
-    <div data-ng-repeat="movie in movies.doc | filter:query" ng-controller="mediaItemCtrl" data-ng-click="collapse()">
+    <div data-ng-repeat="movie in movies.doc | filter:query" ng-controller="mediaItemCtrl" data-ng-click="open('lg', movie)">
         <div class="mediaItem col-xs-12 col-md-4 col-lg-2">
-            <img ng-src="{{movie.poster}}" />
+
+                <img ng-src="{{movie.poster}}" />
+                <span class="mediaTitle">{{movie.origTitle}}</span>
         </div>
-
-        <div uib-collapse="isCollapsed" >
-            <div class="mediaInfo col-xs-2 col-md-4 col-lg-12">
-                    {{movie.title}}
-                    {{movie.year}}
-                <button class="btn btn-primary" data-ng-click="open('lg', movie)">Edit this movie</button>
-            </div>
-        </div>
-
-
-
     </div>
+
     <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-click="open('lg')">
         +
     </div>
