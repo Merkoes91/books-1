@@ -1,4 +1,8 @@
 /**
+ * Created by Marko on 19-4-2016.
+ */
+
+/**
  * Created by Marko on 8-4-2016.
  */
 
@@ -17,10 +21,10 @@ var router = express.Router();
  In this example is a mapping for every CRUD action.
  */
 
-var MovieQueryController = require('../app/controllers/movieQueries.js');
+var ActorController = require('../app/controllers/actors.js');
 
-router.get('/movies/query/:_searchString', MovieQueryController.list)
-       .get('/movies/query/id/:_id', MovieQueryController.detail)
-        .get('/movies/config', MovieQueryController.config);
+router.get( '/movies/actor/:_ActorId', ActorController.detailActor);
+
+router.put('/movies/actor/:_ActorId');
 
 module.exports = router;

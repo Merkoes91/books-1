@@ -5,7 +5,6 @@
  * @see http://docs.angularjs.org/guide/concepts
  */
 
-
 var myApp = angular.module('myApp', ['myApp.services', 'ngRoute', 'ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {

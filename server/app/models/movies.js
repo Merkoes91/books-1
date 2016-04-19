@@ -24,7 +24,8 @@
         prodCompanies: {type: Array},
         prodCountries: {type: Array},
         releaseDate: {type: Date},
-        releaseStatus: {type: String}
+        releaseStatus: {type: String},
+        credits: {type: Array}
     }, {collection: 'movies'});
 
     modelName = "Movie";

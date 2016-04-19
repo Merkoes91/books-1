@@ -1,7 +1,44 @@
     <div class="modal-header">
         <h3 class="modal-title">{{editOrAdd}}</h3>
     </div>
-    <div class="modal-body" ng-hide="movie">
+    <!-- Movie INFO -->
+    <div ng-cloak class="modal-body"  style="background: url({{movie.backdrop}})" ng-if="movie">
+        <div><strong>Title: </strong>{{movie.origTitle}}</div>
+        <div><strong>Released on: </strong>{{movie.releaseDate}}</div>
+        <div><strong>Plot: </strong>{{movie.plot}}</div>
+        <a ng-if="movie.homepage" ng-href="{{movie.homepage}}"><img ng-src="{{websiteBtn}}" alt="official website" /></a>
+        <a ng-if="movie.imdbId" ng-href="http://imdb.com/title/{{movie.imdbId}}"><img ng-src="{{imdbBtn}}" alt="IMDB Page" /> </a>
+        <hr>
+        <div class="movie-cast">
+            <h3>Cast</h3>
+            <ul class="actorList">
+                <li ng-repeat="person in movie.credits" ng-show="person['profile_path']" data-ng-click="findActor(person.id)">
+                        <img ng-src="http://image.tmdb.org/t/p/w45{{person['profile_path']}}" /> {{person['name']}} as {{person['character']}}
+                        <div>{{actor['biography']}}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ACTOR INFO -->
+    <div ng-cloak class="modal-body" ng-if="actor">
+        <div class="actor-bodyLeft">
+            <img ng-src="{{actor.profilePath}}">
+        </div>
+        <div class="actor-bodyRight">
+            <ul>
+                <li><strong>Name</strong>: {{actor.name}}</li>
+                <li><strong>Born</strong>: {{actor.birthday}}</li>
+                <li><strong>Born in</strong>: {{actor.placeOfBirth}}</li>
+                <li ng-if="actor.deathday"><strong>Died</strong>: {{actor.deathday}}</li>
+            </ul>
+            <h3>Biography</h3>
+            {{actor.biography}}
+        </div>
+    </div>
+
+    <!-- ADD a movie -->
+    <div class="modal-body" ng-if="!movie && !actor">
         <form class="form-vertical" role="form">
             <fieldset>
                 <div ng-hide="movie">
@@ -18,17 +55,12 @@
                         </ul>
                     </div>
                 </div>
-             </fieldset>
-         </form>
-    </div>
-    <div class="modal-body" id="movieDetail" style="background: url({{movie.backdrop}})" ng-show="movie">
-        <div><strong>Title: </strong>{{movie.origTitle}}</div>
-        <div><strong>Released on: </strong>{{movie.releaseDate}}</div>
-        <div><strong>Plot: </strong>{{movie.plot}}</div>
-        <div><a ng-href="{{movie.homepage}}">Official website</a></div>
-        <div><a ng-href="http://imdb.com/title/{{movie.imdbId}}">View on IMDB</a></div>
+            </fieldset>
+        </form>
     </div>
     <div class="modal-footer">
         <button data-ng-click="deleteMovie()" ng-show="movie" class="btn btn-danger">Delete Movie</button>
-        <button data-ng-click="cancel()" class="btn btn-info">Cancel</button>
+        <button class="btn btn-primary" ng-show="actor" ng-click="backToMovie()">Back to movie</button>
+        <button data-ng-click="cancel()" ng-hide="actor" class="btn btn-info">Cancel</button>
     </div>
+

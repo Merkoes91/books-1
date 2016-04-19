@@ -52,8 +52,8 @@
                 query.results = $resource('/api/movies/query/:_searchString', {},  actions);
                 return query;
             }])
-        .factory('moviesQueryByIdService', ['$resource', '$http',
 
+        .factory('moviesQueryByIdService', ['$resource', '$http',
             function ($resource) {
                 var actions = {
                         'get': {method: 'GET'}
@@ -62,5 +62,16 @@
                 //REST URL to server
                 result.movie = $resource('/api/movies/query/id/:_id', {},  actions);
                 return result;
+            }])
+
+        .factory('actorInfoService', ['$resource', '$http',
+            function ($resource) {
+                var actions = {
+                        'get': {method: 'GET'}
+                    },
+                    actor = {};
+                //REST URL to server
+                actor.info = $resource('/api/movies/actor/:_id', {},  actions);
+                return actor;
             }])
 }());

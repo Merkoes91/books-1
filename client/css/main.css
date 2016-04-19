@@ -42,15 +42,19 @@ body {
     background: #000;
     color:white;
 }
-
-
+.modal {
+    padding:0;
+    margin:0;
+}
 .modal-header {
     background:#000;
     color:#fff;
 }
 
 .modal-body {
-    color:white;
+    background: #1F6B6B;
+    color:#fff;
+    height:700px;
 }
 
 .modal-footer {
@@ -60,12 +64,12 @@ body {
 
 .searchResult {
     cursor: pointer;
+    color:#000;
 }
 
 .searchResult:hover {
     opacity:0.8;
 }
-
 
 .search {
     background:none;
@@ -81,4 +85,44 @@ body {
 }
 
 
+.actorList {
+    background-color: rgba(0,0,0,0.8);
+    width:100%;
+}
 
+.actorList li {
+    width:100%;
+    text-decoration: none;
+    list-style-type: none;
+    cursor: pointer;
+    cursor:hand;
+    opacity: 0.7;
+    border-bottom: 1px #fff solid;
+    margin-top: 5px;
+}
+
+.actorList li img {
+    border-radius:20%;
+}
+
+
+.actorList li:hover {
+    opacity:1;
+}
+
+.actor-bodyLeft {
+    width:30%;
+    float:left;
+}
+
+.actor-bodyRight {
+    width:70%;
+    float:right;
+}
+
+.actor-bodyRight ul {
+    padding:0;
+    margin:0;
+    text-decoration: none;
+    list-style-type: none;
+}

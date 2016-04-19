@@ -25,8 +25,6 @@ exports.list = function (req, res) {
 };
 
 exports.config = function (req, res) {
-    var request = require('request');
-
     request({
         method: 'GET',
         url: 'http://api.themoviedb.org/3/configuration?api_key=' + apiKey,
@@ -36,12 +34,12 @@ exports.config = function (req, res) {
         console.log('Status:', response.statusCode);
         return res.send(body);
     });
-}
+};
 
 exports.detail = function (req, res) {
     request({
         method: 'GET',
-        url: 'http://api.themoviedb.org/3/movie/' + req.params._id + '?api_key=' + apiKey,
+        url: 'http://api.themoviedb.org/3/movie/' + req.params._id + '?api_key=' + apiKey + '&append_to_response=credits',
         headers: {
             'Accept': 'application/json'
         }}, function (error, response, body) {
@@ -49,3 +47,4 @@ exports.detail = function (req, res) {
         return res.send(body);
     });
 };
+
