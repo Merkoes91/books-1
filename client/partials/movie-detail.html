@@ -2,21 +2,23 @@
         <h3 class="modal-title">{{editOrAdd}}</h3>
     </div>
     <!-- Movie INFO -->
-    <div ng-cloak class="modal-body"  style="background: url({{movie.backdrop}})" ng-if="movie">
-        <div><strong>Title: </strong>{{movie.origTitle}}</div>
-        <div><strong>Released on: </strong>{{movie.releaseDate}}</div>
-        <div><strong>Plot: </strong>{{movie.plot}}</div>
-        <a ng-if="movie.homepage" ng-href="{{movie.homepage}}"><img ng-src="{{websiteBtn}}" alt="official website" /></a>
-        <a ng-if="movie.imdbId" ng-href="http://imdb.com/title/{{movie.imdbId}}"><img ng-src="{{imdbBtn}}" alt="IMDB Page" /> </a>
-        <hr>
-        <div class="movie-cast">
-            <h3>Cast</h3>
-            <ul class="actorList">
-                <li ng-repeat="person in movie.credits" ng-show="person['profile_path']" data-ng-click="findActor(person.id)">
+    <div ng-cloak class="modal-body"  ng-if="movie" style="background: url('/api/uploads/backdrops/{{movie.imdbId}}')">
+        <div class="modal-body-info">
+            <div><strong>Title: </strong>{{movie.origTitle}}</div>
+            <div><strong>Released on: </strong>{{movie.releaseDate}}</div>
+            <div><strong>Plot: </strong>{{movie.plot}}</div>
+            <a ng-if="movie.homepage" ng-href="{{movie.homepage}}"><img ng-src="{{websiteBtn}}" alt="official website" /></a>
+            <a ng-if="movie.imdbId" ng-href="http://imdb.com/title/{{movie.imdbId}}"><img ng-src="{{imdbBtn}}" alt="IMDB Page" /> </a>
+            <hr>
+            <div class="movie-cast">
+                <h3>Cast</h3>
+                <ul class="actorList">
+                    <li ng-repeat="person in movie.credits" ng-show="person['profile_path']" data-ng-click="findActor(person.id)">
                         <img ng-src="http://image.tmdb.org/t/p/w45{{person['profile_path']}}" /> {{person['name']}} as {{person['character']}}
                         <div>{{actor['biography']}}</div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

@@ -11,8 +11,6 @@ String.prototype.replaceAll = function(search, replace)
     return this.replace(new RegExp('[' + search + ']', 'g'), replace);
 };
 
-
-
 myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesService) {
     "use strict";
     //get all movies
@@ -41,8 +39,8 @@ myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesServi
             }
         });
 
-       modalInstance.result.then(function () {
-           $scope.movies = moviesService.movies.get();
+        modalInstance.result.then(function () {
+            $scope.movies = moviesService.movies.get();
         });
     };
 });
@@ -98,7 +96,6 @@ myApp.controller('MovieDetailCtrl', function ($scope, $location,$http, $uibModal
         moviesService.movies.delete({_id: $scope.movie._id});
         console.log('deleting');
          $uibModalInstance.close(movie);
-         $location.path('/movies');
     };
 
     // CREATE, UPDATE movie
@@ -126,7 +123,7 @@ myApp.controller('MovieDetailCtrl', function ($scope, $location,$http, $uibModal
         }, function (error) {
             console.log(err);
         });
-    }
+    };
 
     $scope.backToMovie = function () {
         $scope.movie = lastMovie;
@@ -142,7 +139,7 @@ myApp.controller('BookListCtrl', function ($scope, booksService) {
     $scope.books = booksService.books.get();
 });
 
-myApp.controller('BookDetailCtrl', function ($scope, $routeParams, $location, $http, booksService) {
+myApp   .controller('BookDetailCtrl', function ($scope, $routeParams, $location, $http, booksService) {
     "use strict";
 
     $scope.getBookData = function (isbn) {
