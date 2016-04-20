@@ -129,4 +129,4 @@ crashlytics-build.properties
 
 # Prevents my config.js to appear in the repo
 config.js
-
+server/uploads

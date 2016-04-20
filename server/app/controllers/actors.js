@@ -6,8 +6,6 @@ var mongoose = require('mongoose'),
     request = require('request'),
     apiKey = '45ab362206a55b1fbc45857f52a7c8e4';
 
-
-
 exports.createActor = function (req, res) {
     var doc = new Actor(req.body);
     console.log('Creating' + doc.title);

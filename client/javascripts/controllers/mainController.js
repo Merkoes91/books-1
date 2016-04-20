@@ -40,10 +40,14 @@ myApp.controller('MovieListCtrl', function ($scope, $uibModal, $log, moviesServi
         });
 
         modalInstance.result.then(function () {
-            $scope.movies = moviesService.movies.get();
+            moviesService.movies.get().$promise.then (function (res) {
+                $scope.movies = res;
+            });
         });
     };
 });
+
+
 
 myApp.controller('MovieDetailCtrl', function ($scope, $location,$http, $uibModal, $uibModalInstance, movie, moviesService, moviesQueryService, moviesQueryByIdService, actorInfoService) {
     "use strict";
