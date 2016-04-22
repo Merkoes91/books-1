@@ -32,12 +32,11 @@
                     'get': {method: 'GET'},
                     'save': {method: 'POST'},
                     'query': {method: 'GET', isArray: true},
-                    'update': {method: 'PUT'},
                     'delete': {method: 'DELETE'}
                 },
                 dbMovies = {};
             //REST URL to server
-            dbMovies.movies = $resource('/api/movies/:_id', {},  actions);
+            dbMovies.movies = $resource('/api/movies/:imdbId', {},  actions);
             return dbMovies;
         }])
 

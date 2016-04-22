@@ -13,20 +13,10 @@
         modelName;
 
     schemaName = new Schema({
-        backdrop: {type: String, "default": "N/A"},
-        genres: {type: Array},
-        homepage: {type: String, "default": 'N/A'},
         imdbId: {type: String, unique: true},
-        origLang: {type: String},
-        origTitle: {type: String},
-        plot: {type: String},
-        poster: {type: String},
-        prodCompanies: {type: Array},
-        prodCountries: {type: Array},
-        releaseDate: {type: Date},
-        releaseStatus: {type: String},
-        credits: {type: Array}
     }, {collection: 'movies'});
+
+    schemaName.set('versionKey', false);
 
     modelName = "Movie";
     mongoose.model(modelName, schemaName);

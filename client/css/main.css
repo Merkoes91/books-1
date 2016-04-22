@@ -104,14 +104,8 @@ body {
     margin-top: 5px;
 }
 
-.actorList li img {
-    border-radius:20%;
-}
-
-
 .actorList li:hover {
     opacity:1;
-    zoom: 1.3;
 }
 
 .actor-bodyLeft {

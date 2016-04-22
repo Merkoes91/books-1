@@ -3,6 +3,7 @@
 
 var mongoose = require('mongoose'),
     Movie = mongoose.model('Movie'),
+    MovieDatabase = mongoose.model('MovieDatabase'),
     http = require('http'),
     fs = require('fs');
 
@@ -13,40 +14,73 @@ var mongoose = require('mongoose'),
  **/
 
 exports.create = function (req, res) {
-    var doc = new Movie(req.body);
-    doc.save(function (err) {
-        var retObj = {
-            meta: {"action": "create",
-                'timestamp': new Date(),
-                filename: __filename},
-            doc: doc,
-            err: err
-        };
+    var query,
+        doc,
+        movieToAdd,
+        newMovie,
+        promise,
 
-        return res.send(retObj);
-    });
+    // check if exists in local MovieDatabase
 
-    var download = function(url, dest, cb) {
-        var file = fs.createWriteStream(dest);
-        var request = http.get(url, function(response) {
-            response.pipe(file);
-            file.on('finish', function() {
-                file.close(cb);  // close() is async, call cb after close completes.
+    query = MovieDatabase.findOne({imdbId: req.body.imdbId});
+
+    promise = query.exec();
+
+    promise.then(function (res) {
+        console.log(res);
+
+        // movie is in local DB
+        if(res != null) {
+            res = res.toObject();
+            delete res._id;
+            delete res._v;
+
+            doc = new Movie({imdbId: res.imdbId});
+            doc.save(res, function (err) {
+                if (err) {console.log(err); }
             });
-        });
-    };
+            console.log('movie fetched from local DB');
+        } else {
+            // movie not in local DB fetch from themoviedb.org and save to local movieDB and movies
+            console.log('Movie doesnt exist yet');
+            var imdbId = {imdbId: req.body.imdbId};
 
-    if(doc.poster != null) {
-        download(doc.poster, './uploads/movieposters/' + doc.imdbId + '.jpg', function(res) {
-            console.log('succesfully uploaded poster');
-        });
-    }
+            doc = new Movie(imdbId);
+            newMovie = new MovieDatabase(req.body);
 
-    if(doc.backdrop != null) {
-        download(doc.backdrop, './uploads/backdrops/' + doc.imdbId + '.jpg', function(res) {
-            console.log('succesfully uploaded backdrop');
-        });
-    }
+            newMovie.save(function (err) {
+               if(!err) console.log('and saved it to the local database');
+            });
+
+            var download = function(url, dest, cb) {
+                var file = fs.createWriteStream(dest);
+                var request = http.get(url, function(response) {
+                    response.pipe(file);
+                    file.on('finish', function() {
+                        file.close(cb);  // close() is async, call cb after close completes.
+                    });
+                });
+            };
+
+            if(newMovie.poster != null) {
+                download(newMovie.poster, './uploads/movieposters/' + newMovie.imdbId + '.jpg', function() {
+                    console.log('succesfully uploaded poster');
+                });
+            }
+
+            if(newMovie.backdrop != null) {
+                download(newMovie.backdrop, './uploads/backdrops/' + newMovie.imdbId + '.jpg', function() {
+                    console.log('succesfully uploaded backdrop');
+                });
+            }
+
+            doc.save(function (err) {
+                if (!err) console.log('Movie not in local db, succesfully added movie from the moviedb.org');
+            });
+        }
+    }, function(err) {
+        if (err) {console.log(err); }
+    });
 };
 
 /**
@@ -90,62 +124,15 @@ exports.detail = function (req, res) {
     var conditions,
         fields;
 
-    conditions = {_id: req.params._id};
+    conditions = {imdbId: req.params.imdbId};
     fields = {};
 
-    Movie
+    MovieDatabase
         .findOne(conditions, fields)
         .exec(function (err, doc) {
-
-            var retObj = {
-                meta: {"action": "create",
-                    'timestamp': new Date(),
-                    filename: __filename},
-                doc: doc, // Only ONE object
-                err: err
-            };
-
-            return res.send(retObj);
+           res.send(doc);
         });
 };
-
-/**
- * UPDATE book
- * --------------------
- * Controller to update _one_ movies
- */
-
-exports.updateOne = function (req, res) {
-    console.log(req.body.doc);
-    var conditions =
-        {_id: req.body._id},
-        update = {
-            title: req.body.title || '',
-            year: req.body.author || '',
-            imdbUrl: req.body.imdbUrl || '',
-            imdbRating: req.body.imdbRating || '',
-            poster: req.body.poster || ''
-        },
-        options = {multi: false},
-        callback = function (err, doc) {
-            var retObj = {
-                meta: {
-                    "action": "update",
-                    'timestamp': new Date(),
-                    filename: __filename,
-                    'doc': doc,
-                    'update': update
-                },
-                doc: update,
-                err: err
-            };
-            return res.send(retObj);
-        };
-
-    Movie
-        .findOneAndUpdate(conditions, update, options, callback);
-};
-
 
 /**
  * DELETE
@@ -163,9 +150,7 @@ exports.updateOne = function (req, res) {
 exports.delete = function (req, res) {
     var conditions,
         callback;
-    console.log('Deleting book. ', req.params._id);
-
-    conditions = {_id: req.params._id};
+    conditions = {imdbId: req.params.imdbId};
     callback = function (err, doc) {
 
         var retObj = {
@@ -178,14 +163,12 @@ exports.delete = function (req, res) {
         return res.send(retObj);
     };
 
-    Movie.remove(conditions, callback);
+    Movie.findOneAndRemove(conditions, callback);
 };
 
 exports.posterImage = function (req, res) {
     var imageDir =  __dirname + '../../../uploads/movieposters/';
     var image = req.params._imdbId + '.jpg';
-
-    console.log(imageDir + image);
 
     fs.readFile(imageDir + image, function(err, data) {
         if (err) throw err; // Fail if the file can't be read.
@@ -193,13 +176,12 @@ exports.posterImage = function (req, res) {
             res.writeHead(200, {'Content-Type': 'image/jpeg'});
             res.end(data); // Send the file data to the browser.
     });
-}
+};
 
 exports.backDrop = function (req, res) {
     var imageDir =  __dirname + '../../../uploads/backdrops/';
     var image = req.params._imdbId + '.jpg';
 
-    console.log(imageDir + image);
 
     fs.readFile(imageDir + image, function(err, data) {
         if (err) throw err; // Fail if the file can't be read.
@@ -207,4 +189,4 @@ exports.backDrop = function (req, res) {
         res.writeHead(200, {'Content-Type': 'image/jpeg'});
         res.end(data); // Send the file data to the browser.
     });
-}
+};

@@ -1,5 +1,5 @@
     <div class="modal-header">
-        <h3 class="modal-title">{{editOrAdd}}</h3>
+        <h3 class="modal-title">{{modalTitle}}</h3>
     </div>
     <!-- Movie INFO -->
     <div ng-cloak class="modal-body"  ng-if="movie" style="background: url('/api/uploads/backdrops/{{movie.imdbId}}')">
@@ -40,26 +40,6 @@
     </div>
 
     <!-- ADD a movie -->
-    <div class="modal-body" ng-if="!movie && !actor">
-        <form class="form-vertical" role="form">
-            <fieldset>
-                <div ng-hide="movie">
-                    <div class="form-group" >
-                        <label for="input-query" class="control-label">SEARCH TITLE</label>
-                        <input data-ng-model="querySearchString" type="text" class="form-control" id="input-query" >
-                        <button data-ng-click="queryMovie(querySearchString)" class="btn btn-primary">Search movies</button>
-                    </div>
-
-                    <div ng-show="results">
-                        <h2>Did you mean?</h2>
-                        <ul class="list-group">
-                            <li class="list-group-item searchResult" data-ng-repeat="result in results | limitTo:10 track by $index" data-ng-click="bindResult(result['id'])">{{result['original_title']}}, released on {{result['release_date']}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
     <div class="modal-footer">
         <button data-ng-click="deleteMovie()" ng-show="movie" class="btn btn-danger">Delete Movie</button>
         <button class="btn btn-primary" ng-show="actor" ng-click="backToMovie()">Back to movie</button>

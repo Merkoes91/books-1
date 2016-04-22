@@ -22,7 +22,6 @@ exports.create = function (req, res) {
             doc: doc,
             err: err
         };
-
         return res.send(retObj);
     });
 };

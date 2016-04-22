@@ -1,14 +1,13 @@
 <div class="row" ng-controller="MovieListCtrl">
     <input class="search" ng-model="query" placeholder="search...">
 
-    <div data-ng-repeat="movie in movies.doc | orderBy: movie.title | filter:query"  data-ng-click="open('lg', movie)">
+    <div data-ng-repeat="movie in movies.doc | filter:query"  data-ng-click="openMovie('lg', movie)">
         <div class="mediaItem col-xs-12 col-md-4 col-lg-2">
                 <img ng-src="/api/uploads/moviesposters/{{movie.imdbId}}" />
-                <span class="mediaTitle">{{movie.origTitle}}</span>
         </div>
     </div>
 
-    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-click="open('lg')">
+    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-click="addMovie('lg')">
         Add a movie
     </div>
 </div>

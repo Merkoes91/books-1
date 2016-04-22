@@ -24,12 +24,12 @@ router.get('/movies/query/:_searchString', MovieQueryController.list)
 router.post('/movies', MovieController.create);
 
 router.get('/movies', MovieController.list) // create a movie in mongo and upload the poster and backdrop to uploads
-    .get('/movies/:_id', MovieController.detail)  // get movie information
+    .get('/movies/:imdbId', MovieController.detail)  // get movie information
     .get('/uploads/moviesposters/:_imdbId', MovieController.posterImage) // respond img from uploads folder
     .get('/uploads/backdrops/:_imdbId', MovieController.backDrop);
 
 // DELETE a movie
-router.delete('/movies/:_id', MovieController.delete);
+router.delete('/movies/:imdbId', MovieController.delete);
 
 
 /* Actor Routes */
