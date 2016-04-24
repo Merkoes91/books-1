@@ -14,6 +14,7 @@
 
     schemaName = new Schema({
         imdbId: {type: String, unique: true},
+        title: {type: String}
     }, {collection: 'movies'});
 
     schemaName.set('versionKey', false);

@@ -59,7 +59,6 @@ myApp.controller('MovieListCtrl', function ($scope, $uibModal, moviesService) {
             $scope.getMovies();
         });
     };
-
     // get all movies
     $scope.getMovies();
 });
@@ -67,11 +66,12 @@ myApp.controller('MovieListCtrl', function ($scope, $uibModal, moviesService) {
 myApp.controller('MovieDetailCtrl', function ($scope, $location, $http, $uibModalInstance, imdbId, moviesService, actorInfoService) {
     // get info for the selected movie
     var lastMovie;
+    var limitStep = 4; // limit for showing actors
+    $scope.limit = limitStep;
 
     moviesService.movies.get({imdbId: imdbId}).$promise.then (function (res) {
         $scope.movie = res;
-        $scope.movie['credits'].splice(5, $scope.movie['credits'].length);
-        $scope.modalTitle = $scope.movie.origTitle;
+        $scope.modalTitle = res.origTitle;
         console.log(res);
     });
 
@@ -89,10 +89,15 @@ myApp.controller('MovieDetailCtrl', function ($scope, $location, $http, $uibModa
     $scope.findActor = function (actorId) {
         actorInfoService.info.get({_id: actorId}).$promise.then(function (res) {
             lastMovie = $scope.movie; // save movie so we can go back while in actor view
-            delete $scope.movie; // delete $scope.movie so the view renders the actor part
             $scope.actor = res; // set actor for the actor info
             $scope.modalTitle = $scope.actor.name; // set the modal Title;
+            delete $scope.movie; // delete $scope.movie so the view renders the actor part
+
         })
+    };
+
+    $scope.loadMoreActors = function () {
+        $scope.limit += limitStep;
     };
 
     $scope.backToMovie = function () {
@@ -102,7 +107,7 @@ myApp.controller('MovieDetailCtrl', function ($scope, $location, $http, $uibModa
     };
 });
 
-myApp.controller('MovieAddCtrl', function ($scope, $uibModalInstance, moviesService, moviesQueryService, moviesQueryByIdService) {
+myApp.controller('MovieAddCtrl', function ($scope, $timeout, $uibModalInstance, moviesService, moviesQueryService, moviesQueryByIdService) {
 
     $scope.queryMovie = function(querySearchString) {
         querySearchString = querySearchString.replaceAll(" ", "+");
@@ -115,7 +120,7 @@ myApp.controller('MovieAddCtrl', function ($scope, $uibModalInstance, moviesServ
 
     $scope.bindResult = function(id) {
         moviesQueryByIdService.movie.get({_id: id}).$promise.then(function (res) {
-            $scope.movie  = {
+            var movie  = {
                 "backdrop": 'http://image.tmdb.org/t/p/w1280/' + res['backdrop_path'],
                 "genres": res['genres'],
                 "homepage": res['homepage'],
@@ -130,15 +135,18 @@ myApp.controller('MovieAddCtrl', function ($scope, $uibModalInstance, moviesServ
                 "releaseStatus": res['status'],
                 "credits": res['credits']['cast']
             };
-            $scope.saveMovie($scope.movie);
+
+
+            moviesService.movies.save(movie);
+
+            $timeout(function() {
+                $uibModalInstance.close();
+            }, 200);
+
+
         }, function (err) {
             console.log(err);
         })
-    };
-
-    $scope.saveMovie = function(movie) {
-        moviesService.movies.save(movie);
-        $uibModalInstance.close();
     };
 
 });

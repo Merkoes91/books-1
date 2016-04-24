@@ -1,14 +1,14 @@
 <div class="modal-header">
     <h3 class="modal-title">Add a movie</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body addMovie">
     <form class="form-vertical" role="form">
         <fieldset>
             <div ng-hide="movie">
                 <div class="form-group" >
                     <label for="input-query" class="control-label">SEARCH TITLE</label>
-                    <input data-ng-model="querySearchString" type="text" class="form-control" id="input-query" >
-                    <button data-ng-click="queryMovie(querySearchString)" class="btn btn-primary">Search movies</button>
+                    <input data-ng-model="querySearchString" type="text" class="form-control" id="input-query" />
+                    <input type="submit" class="btn btn-primary" data-ng-click="queryMovie(querySearchString)" value="Search movie"/>
                 </div>
 
                 <div ng-show="results">

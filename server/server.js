@@ -84,10 +84,13 @@
 
 
 
+
 /**
  * Middleware to serve static page
  */
     app.use(express.static(__dirname + '/../client/'));
+    app.use(express.static(__dirname + '/uploads/'));
+
 
     /**
      * Bootstrap routes

@@ -5,7 +5,7 @@
  * @see http://docs.angularjs.org/guide/concepts
  */
 
-var myApp = angular.module('myApp', ['myApp.services', 'ngRoute', 'ui.bootstrap'])
+var myApp = angular.module('myApp', ['myApp.services', 'ngRoute', 'ngTouch', 'ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {
         "use strict";
@@ -14,21 +14,14 @@ var myApp = angular.module('myApp', ['myApp.services', 'ngRoute', 'ui.bootstrap'
             templateUrl: './partials/about.html'
         });
 
-        $routeProvider.when('/books', {
-            templateUrl: './partials/book-list.html',
-
-        });
-
-        // Operations on 1 book
-        $routeProvider.when('/books/:_id', {
-            templateUrl: './partials/book-detail.html',
-
-        });
-
         $routeProvider.when('/movies', {
             templateUrl: './partials/movie-list.html',
 
         });
+
+        $routeProvider.otherwise({
+                redirectTo: "/movies"
+        })
         // otherwise
     }]);
 

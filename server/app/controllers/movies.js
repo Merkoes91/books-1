@@ -5,83 +5,73 @@ var mongoose = require('mongoose'),
     Movie = mongoose.model('Movie'),
     MovieDatabase = mongoose.model('MovieDatabase'),
     http = require('http'),
-    fs = require('fs');
+    fs = require('fs'),
+    request = require('request'),
+    rp = require('request-promise');
+
 
 /**
  * CREATE a movie
  * --------------------
  * Controller to create a movie
  **/
-
 exports.create = function (req, res) {
-    var query,
-        doc,
-        movieToAdd,
+    var conditions = {imdbId: req.body.imdbId},
+        fields = {},
+        retObj,
         newMovie,
-        promise,
+        movie;
 
-    // check if exists in local MovieDatabase
+    MovieDatabase
+        .findOne(conditions,fields)
+        .exec(function (err, doc) {
+            console.log('1: Checking if ' + req.body.origTitle + ' already exists in local database');
 
-    query = MovieDatabase.findOne({imdbId: req.body.imdbId});
-
-    promise = query.exec();
-
-    promise.then(function (res) {
-        console.log(res);
-
-        // movie is in local DB
-        if(res != null) {
-            res = res.toObject();
-            delete res._id;
-            delete res._v;
-
-            doc = new Movie({imdbId: res.imdbId});
-            doc.save(res, function (err) {
-                if (err) {console.log(err); }
-            });
-            console.log('movie fetched from local DB');
-        } else {
-            // movie not in local DB fetch from themoviedb.org and save to local movieDB and movies
-            console.log('Movie doesnt exist yet');
-            var imdbId = {imdbId: req.body.imdbId};
-
-            doc = new Movie(imdbId);
-            newMovie = new MovieDatabase(req.body);
-
-            newMovie.save(function (err) {
-               if(!err) console.log('and saved it to the local database');
-            });
-
-            var download = function(url, dest, cb) {
-                var file = fs.createWriteStream(dest);
-                var request = http.get(url, function(response) {
-                    response.pipe(file);
-                    file.on('finish', function() {
-                        file.close(cb);  // close() is async, call cb after close completes.
-                    });
-                });
+            retObj = {
+                doc: doc, // Array all documents
+                err: err
             };
 
-            if(newMovie.poster != null) {
-                download(newMovie.poster, './uploads/movieposters/' + newMovie.imdbId + '.jpg', function() {
-                    console.log('succesfully uploaded poster');
-                });
-            }
-
-            if(newMovie.backdrop != null) {
-                download(newMovie.backdrop, './uploads/backdrops/' + newMovie.imdbId + '.jpg', function() {
-                    console.log('succesfully uploaded backdrop');
-                });
-            }
-
-            doc.save(function (err) {
-                if (!err) console.log('Movie not in local db, succesfully added movie from the moviedb.org');
+            movie = new Movie({
+                imdbId: req.body.imdbId,
+                title: req.body.origTitle
             });
-        }
-    }, function(err) {
-        if (err) {console.log(err); }
-    });
+
+            return res.send(retObj);
+        }).then(function (){
+            if(retObj.doc == null) {
+                console.log('2: Movie not found adding to the local database');
+
+                newMovie = new MovieDatabase(req.body);
+
+                newMovie.save(function() {
+                    request(newMovie.poster).pipe(fs.createWriteStream('./uploads/movieposters/' + newMovie.imdbId + '.jpg'));
+                    request(newMovie.backdrop).pipe(fs.createWriteStream('./uploads/backdrops/' + newMovie.imdbId + '.jpg'));
+                }).then(function() {
+                   console.log('3: Movie added to the local database adding to the movie list');
+
+                    movie.save().then(function (){
+                        console.log('4: Succesully added movie to the movie list');
+                    });
+                });
+
+
+            }
+            else {
+                console.log('2: Movie already exists in local database saving to the movie list');
+
+                movie.save().then(function (){
+                    console.log('3: Succesully added movie to the movie list');
+                });
+            }
+        });
 };
+
+
+/*
+* Controller to check if movie is in local movie database and create poster paths
+*
+*/
 
 /**
  * RETRIEVE _all_ movies

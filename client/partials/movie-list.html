@@ -3,11 +3,16 @@
 
     <div data-ng-repeat="movie in movies.doc | filter:query"  data-ng-click="openMovie('lg', movie)">
         <div class="mediaItem col-xs-12 col-md-4 col-lg-2">
-                <img ng-src="/api/uploads/moviesposters/{{movie.imdbId}}" />
+                <span class="mediaTitle-mob">{{movie.title}}</span>
+                <img ng-src="/movieposters/{{movie.imdbId}}.jpg" />
+            <div class="mediaTitle">
+                {{movie.title | uppercase}}
+            </div>
         </div>
+
     </div>
 
-    <div class="mediaItem col-xs-12 col-md-4 col-lg-2" data-ng-click="addMovie('lg')">
-        Add a movie
+    <div class="mediaItem col-xs-12 col-md-4 col-lg-2">
+        <button class="btn-lg btn-primary btn-block" data-ng-click="addMovie('lg')">Add movie</button>
     </div>
 </div>

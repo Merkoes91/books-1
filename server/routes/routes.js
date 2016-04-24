@@ -19,6 +19,8 @@ router.get('/movies/query/:_searchString', MovieQueryController.list)
     .get('/movies/query/id/:_id', MovieQueryController.detail)
     .get('/movies/config', MovieQueryController.config);
 
+
+
 /* Movie Routes */
 // CREATE a movie
 router.post('/movies', MovieController.create);

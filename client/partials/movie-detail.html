@@ -1,5 +1,5 @@
     <div class="modal-header">
-        <h3 class="modal-title">{{modalTitle}}</h3>
+        <h3 class="modal-title">{{modalTitle | uppercase}}</h3>
     </div>
     <!-- Movie INFO -->
     <div ng-cloak class="modal-body"  ng-if="movie" style="background: url('/api/uploads/backdrops/{{movie.imdbId}}')">
@@ -10,20 +10,18 @@
             <a ng-if="movie.homepage" ng-href="{{movie.homepage}}"><img ng-src="{{websiteBtn}}" alt="official website" /></a>
             <a ng-if="movie.imdbId" ng-href="http://imdb.com/title/{{movie.imdbId}}"><img ng-src="{{imdbBtn}}" alt="IMDB Page" /> </a>
             <hr>
-            <div class="movie-cast">
-                <h3>Cast</h3>
-                <ul class="actorList">
-                    <li ng-repeat="person in movie.credits" ng-show="person['profile_path']" data-ng-click="findActor(person.id)">
-                        <img ng-src="http://image.tmdb.org/t/p/w45{{person['profile_path']}}" /> {{person['name']}} as {{person['character']}}
-                        <div>{{actor['biography']}}</div>
-                    </li>
-                </ul>
+            <h2>Movie cast</h2>
+            <div class="row">
+                    <div ng-cloak class="col-lg-3" ng-repeat="person in movie.credits | limitTo: limit " ng-if="person['profile_path'] != null" data-ng-click="findActor(person.id)">
+                        <img class="img img-reponsive actor-img" src="http://image.tmdb.org/t/p/w185/{{person.profile_path}}" />
+                     </div>
             </div>
         </div>
+        <button class="btn btn-primary btn-block" data-ng-click="loadMoreActors()">Load more actors</button>
     </div>
 
     <!-- ACTOR INFO -->
-    <div ng-cloak class="modal-body" ng-if="actor">
+    <div ng-cloak class="modal-body actor" ng-if="actor">
         <div class="actor-bodyLeft">
             <img ng-src="{{actor.profilePath}}">
         </div>
@@ -34,7 +32,9 @@
                 <li><strong>Born in</strong>: {{actor.placeOfBirth}}</li>
                 <li ng-if="actor.deathday"><strong>Died</strong>: {{actor.deathday}}</li>
             </ul>
-            <h3>Biography</h3>
+        </div>
+        <div class="actor-Biography">
+            <h2>Biography</h2>
             {{actor.biography}}
         </div>
     </div>
